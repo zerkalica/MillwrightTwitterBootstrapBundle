@@ -1,0 +1,11 @@
+{% block page %}
+<section id="page-content" class="fluid-container sidebar-left">
+    <section id="content" role="main" class="fluid-content">
+    {% block content %} {% endblock content %}
+    </section> <!-- /content -->
+
+    <aside id="sidebar-primary" role="complementary" class="fluid-sidebar">
+    {% block sidebar_primary %} {% endblock sidebar_primary %}
+    </aside> <!-- /sidebar-primary -->
+</section> <!-- /content-wrapper -->
+{% endblock page %}

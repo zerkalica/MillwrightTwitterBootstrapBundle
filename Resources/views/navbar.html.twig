@@ -1,0 +1,9 @@
+{% block navbar %}
+<nav id="page-navbar" role="navigation" class="navbar navbar-fixed">
+    <div class="navbar-inner">
+        <div class="fluid-container">
+            {% block navbar_data %}page_navbar_data{% endblock navbar_data %}
+        </div> <!-- /fluid-container -->
+    </div> <!-- /navbar-inner -->
+</nav> <!-- /page-navbar -->
+{% endblock navbar %}

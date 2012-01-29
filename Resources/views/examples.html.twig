@@ -1,0 +1,17 @@
+{% use 'MillwrightTwitterBootstrapBundle::navbar.html.twig' %}
+
+{% block navbar_data %}
+<a class="brand" href="#">{% block project_name %}project_name{% endblock project_name %}</a>
+
+{% block navbar_menu %}
+<ul class="nav">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ul> <!-- /nav -->
+{% endblock navbar_menu %}
+
+{% block navbar_login %}
+<p class="pull-right">Logged in as <a href="#">username</a></p>
+{% endblock navbar_login %}
+{% endblock navbar_data %}
