@@ -44,9 +44,10 @@
         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
     </a>
 {% else %}
-    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
 {% endif %}
 {% endblock fos_login_block %}
+
 
 {% block field_row %}
 {% spaceless %}
