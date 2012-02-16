@@ -1,3 +1,20 @@
 .fluid-content {
     float: right;
 }
+
+.navbar-inner label,
+.navbar-inner {
+    color: white;
+}
+
+.navbar .form-inline {
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.navbar .input-small, .navbar .uneditable-input {
+    height: 1.2em;
+    line-height: 1.2em;
+    margin-bottom: 0;
+    padding: 2px;
+}

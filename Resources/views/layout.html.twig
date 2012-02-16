@@ -1,0 +1,87 @@
+{% block stylesheets %}
+{% stylesheets
+    filter='cssrewrite,?yui_css'
+    debug=false
+    output="css/bootstrap.min.css"
+    'bundles/millwrighttwitterbootstrap/css/bootstrap.css'
+    'bundles/millwrighttwitterbootstrap/css/custom/*.css'
+    'bundles/millwrighttwitterbootstrap/css/bootstrap-responsive.css'
+%}
+{% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
+{% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+{% javascripts
+    filter='yui_js'
+    debug=false
+    output="js/bootstrap.all.min.js"
+    'bundles/millwrighttwitterbootstrap/js/*.js'
+%}
+{% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
+{% endjavascripts %}
+{% endblock javascripts %}
+
+{% block header_markup %}
+<header id="page-header">
+    {{ block('navbar_wrapper') }}
+    {{ block('header') }}
+</header> <!-- /page-header -->
+{% endblock header_markup %}
+
+{% block footer_markup %}
+<footer id="page-footer">
+    {{ block('footer') }}
+</footer>
+{% endblock footer_markup %}
+
+{% block content_header %}
+<header id="content-header">
+    <h1 id="content-title">{{ block('content_title') }}</h1>
+    <p id="content-description">
+        {{ block('content_description') }}
+    </p> <!-- /content-desdcription -->
+</header> <!-- /content-header -->
+{% endblock content_header %}
+
+{% block messages %}
+    {% import 'MillwrightTwitterBootstrapBundle::macroses.html.twig' as macro %}
+    {% for key, message in app.session.getFlashes() %}
+        {{ macro.message_error(message|trans({}, 'FOSUserBundle')) }}
+    {% endfor %}
+{% endblock messages %}
+
+{% block content_markup %}
+    {{ block('content_header') }}
+    {{ block('content_breadcrumbs') }}
+    {{ block('messages') }}
+    {{ block('content') }}
+{% endblock content_markup %}
+
+{% block layout_two_column %}
+<div class="row-fluid">
+    <section id="content" role="main" class="span10 content">
+        {{ block('content_markup') }}
+    </section> <!-- /content -->
+
+    <aside id="sidebar-primary" role="complementary" class="span2 sidebar">
+        {{ block('sidebar_primary') }}
+    </aside> <!-- /sidebar-primary -->
+</div>
+{% endblock layout_two_column %}
+
+{% block page_header_footer_sidebar_left %}
+    {{ block('header_markup') }}
+    <section id="page-content" class="container-fluid sidebar-left">
+        {{ block('layout_two_column') }}
+    </section> <!-- /page-content -->
+    {{ block('footer_markup') }}
+{% endblock page_header_footer_sidebar_left %}
+
+{% block page_header_footer_sidebar_right %}
+    {{ block('header_markup') }}
+    <section id="page-content" class="container-fluid sidebar-right">
+        {{ block('layout_two_column') }}
+    </section> <!-- /page-content -->
+    {{ block('footer_markup') }}
+{% endblock page_header_footer_sidebar_right %}

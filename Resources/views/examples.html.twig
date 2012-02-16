@@ -1,11 +1,24 @@
-{% use 'MillwrightTwitterBootstrapBundle:Menu:widgets.html.twig' %}
+{% block body %}
+    {{ block('page_header_footer_sidebar_right') }}
+{% endblock body %}
 
-{% block navbar_data %}
+{% block navbar_menu %}
     {{ millwright_menu_render('main') }}
-{% endblock navbar_data %}
+{% endblock navbar_menu %}
 
-{% block navbar_login %}
-<p class="pull-right">Logged in as <a href="#">username</a></p>
-{% endblock navbar_login %}
+{% block navbar_text %}
+    {{ block('fos_login_block') }}
+{% endblock navbar_text %}
 
-{% block sidebar_primary %} sidebar {% endblock sidebar_primary %}
+{% block header %}header{% endblock header %}
+{% block footer %}footer{% endblock footer %}
+
+{% block content_breadcrumbs %}content_breadcrumbs{% endblock content_breadcrumbs %}
+{% block content_title %}content_title{% endblock content_title %}
+{% block content_description %}content_description{% endblock content_description %}
+{% block content %}content{% endblock content %}
+
+{% block sidebar_primary %}sidebar_primary{% endblock sidebar_primary %}
+
+
+{% block project_name %}Bootstrap{% endblock project_name %}

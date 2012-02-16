@@ -1,0 +1,25 @@
+{% macro message(message, class) %}
+    {% if message %}
+        <div class="alert {{ class }}">
+            <a class="close" data-dismiss="alert">×</a>
+            {{ message }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro message_error(message) %}
+    {{ _self.message(message, 'alert-error') }}
+{% endmacro %}
+
+{% macro message_warning(message) %}
+    {{ _self.message(message) }}
+{% endmacro %}
+
+{% macro message_success(message) %}
+    {{ _self.message(message, 'alert-success') }}
+{% endmacro %}
+
+{% macro message_info(message) %}
+    {{ _self.message(message, 'alert-info') }}
+{% endmacro %}
+
