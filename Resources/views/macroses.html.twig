@@ -38,3 +38,60 @@
     </div>
 </div> <!-- /modal -->
 {% endmacro dialog_modal %}
+
+{% macro form_button(button) %}
+    {% import 'knp_menu.html.twig' as macros %}
+    {%- set primary = button.primary is defined ? button.primary : 0 %}
+    {%- set classes = button.class is defined ? [button.class, 'btn'] : ['btn'] %}
+    {%- if primary %}
+        {%- set classes = classes|merge(['btn-primary']) %}
+    {% endif  %}
+    {%- set bundle = button.bundle is defined ? button.bundle : 'MillwrightTwitterBootstrapBundle' %}
+    {%- set params = button.params is defined ? button.params : {} %}
+    {%- set attributes = {'class': classes|join(' '), 'id': button.id} %}
+    {%- set type = button.type is defined ? button.type : 'submit' %}
+    {%- set attributes = attributes|merge({'type': type}) %}
+    <button{{ macros.attributes(attributes) }}>{{ button.label|trans(params, bundle) }}</button>
+{% endmacro %}
+
+
+{% macro form_buttons(buttons, bundle) %}
+    {% set primary = 1 %}
+    {% for id, button in buttons %}
+        {% if button.primary is not defined %}
+            {%- set button = button|merge({'primary': 1}) %}
+        {% endif %}
+        {% if button.id is not defined %}
+            {%- set button = button|merge({'id': 'btn-' ~ id}) %}
+        {% endif %}
+        {% if button.bundle is not defined %}
+            {%- set button = button|merge({'bundle': bundle}) %}
+        {% endif %}
+        {{ _self.form_button(button) }}
+        {% set primary = 0 %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro form_buttons_block(buttons, bundle) %}
+    <div class="form-actions">
+        {{ _self.form_buttons(buttons, bundle) }}
+    </div>
+{% endmacro %}
+
+{% macro form_block(form, attributes, buttons, title, bundle) %}
+    {% import 'knp_menu.html.twig' as macros %}
+    {%- set buttons = buttons is not empty ? buttons : {'save': {'label': 'Save', 'type': 'submit'}} %}
+    {% if attributes.method is not defined %}
+        {%- set attributes = attributes | merge({'method': 'POST'}) %}
+    {% endif %}
+
+<form {{ form_enctype(form) }} {{ macros.attributes(attributes) }}>
+    <fieldset>
+        {% if title is not empty %}
+        <legend>{{ title | trans({}, bundle) }}</legend>
+        {% endif %}
+        {{ form_widget(form) }}
+    </fieldset>
+    {{ _self.form_buttons_block(buttons, bundle) }}
+</form>
+{% endmacro %}
