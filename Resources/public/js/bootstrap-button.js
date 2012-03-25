@@ -1,5 +1,5 @@
 /* ============================================================
- * bootstrap-button.js v2.0.0
+ * bootstrap-button.js v2.0.2
  * http://twitter.github.com/bootstrap/javascript.html#buttons
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -17,7 +17,8 @@
  * limitations under the License.
  * ============================================================ */
 
-!function( $ ){
+
+!function ( $ ) {
 
   "use strict"
 
@@ -91,8 +92,10 @@
 
   $(function () {
     $('body').on('click.button.data-api', '[data-toggle^=button]', function ( e ) {
-      $(e.target).button('toggle')
+      var $btn = $(e.target)
+      if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+      $btn.button('toggle')
     })
   })
 
-}( window.jQuery )
+}( window.jQuery );

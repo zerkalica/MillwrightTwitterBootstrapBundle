@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-collapse.js v2.0.0
+ * bootstrap-collapse.js v2.0.2
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -17,7 +17,8 @@
  * limitations under the License.
  * ============================================================ */
 
-!function( $ ){
+
+!function ( $ ) {
 
   "use strict"
 
@@ -42,10 +43,17 @@
     }
 
   , show: function () {
-      var dimension = this.dimension()
-        , scroll = $.camelCase(['scroll', dimension].join('-'))
-        , actives = this.$parent && this.$parent.find('.in')
+      var dimension
+        , scroll
+        , actives
         , hasData
+
+      if (this.transitioning) return
+
+      dimension = this.dimension()
+      scroll = $.camelCase(['scroll', dimension].join('-'))
+      actives = this.$parent && this.$parent.find('> .accordion-group > .in')
+      hasData
 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
@@ -54,15 +62,16 @@
       }
 
       this.$element[dimension](0)
-      this.transition('addClass', 'show', 'shown')
+      this.transition('addClass', $.Event('show'), 'shown')
       this.$element[dimension](this.$element[0][scroll])
-
     }
 
   , hide: function () {
-      var dimension = this.dimension()
+      var dimension
+      if (this.transitioning) return
+      dimension = this.dimension()
       this.reset(this.$element[dimension]())
-      this.transition('removeClass', 'hide', 'hidden')
+      this.transition('removeClass', $.Event('hide'), 'hidden')
       this.$element[dimension](0)
     }
 
@@ -71,22 +80,29 @@
 
       this.$element
         .removeClass('collapse')
-        [dimension](size || '')
+        [dimension](size || 'auto')
         [0].offsetWidth
 
-      this.$element.addClass('collapse')
+      this.$element[size != null ? 'addClass' : 'removeClass']('collapse')
+
+      return this
     }
 
   , transition: function ( method, startEvent, completeEvent ) {
       var that = this
         , complete = function () {
             if (startEvent == 'show') that.reset()
+            that.transitioning = 0
             that.$element.trigger(completeEvent)
           }
 
-      this.$element
-        .trigger(startEvent)
-        [method]('in')
+      this.$element.trigger(startEvent)
+
+      if (startEvent.isDefaultPrevented()) return
+
+      this.transitioning = 1
+
+      this.$element[method]('in')
 
       $.support.transition && this.$element.hasClass('collapse') ?
         this.$element.one($.support.transition.end, complete) :
@@ -133,4 +149,4 @@
     })
   })
 
-}( window.jQuery )
+}( window.jQuery );

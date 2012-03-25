@@ -1,5 +1,5 @@
 /* ===========================================================
- * bootstrap-tooltip.js v2.0.0
+ * bootstrap-tooltip.js v2.0.2
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ===========================================================
@@ -18,7 +18,8 @@
  * limitations under the License.
  * ========================================================== */
 
-!function( $ ) {
+
+!function ( $ ) {
 
   "use strict"
 
@@ -73,8 +74,9 @@
       if (!self.options.delay || !self.options.delay.show) {
         self.show()
       } else {
+        clearTimeout(this.timeout)
         self.hoverState = 'in'
-        setTimeout(function() {
+        this.timeout = setTimeout(function() {
           if (self.hoverState == 'in') {
             self.show()
           }
@@ -88,8 +90,9 @@
       if (!self.options.delay || !self.options.delay.hide) {
         self.hide()
       } else {
+        clearTimeout(this.timeout)
         self.hoverState = 'out'
-        setTimeout(function() {
+        this.timeout = setTimeout(function() {
           if (self.hoverState == 'out') {
             self.hide()
           }
@@ -144,8 +147,6 @@
             tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
             break
         }
-
-        if (this.options['z-index']) tp['z-index'] = this.options['z-index']
 
         $tip
           .css(tp)
@@ -208,8 +209,6 @@
       title = $e.attr('data-original-title')
         || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
 
-      title = title.toString().replace(/(^\s*|\s*$)/, "")
-
       return title
     }
 
@@ -267,7 +266,6 @@
   , trigger: 'hover'
   , title: ''
   , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-  , 'z-index': false
   }
 
-}( window.jQuery )
+}( window.jQuery );

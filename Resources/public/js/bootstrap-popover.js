@@ -1,5 +1,5 @@
 /* ===========================================================
- * bootstrap-popover.js v2.0.0
+ * bootstrap-popover.js v2.0.2
  * http://twitter.github.com/bootstrap/javascript.html#popovers
  * ===========================================================
  * Copyright 2012 Twitter, Inc.
@@ -18,7 +18,7 @@
  * =========================================================== */
 
 
-!function( $ ) {
+!function ( $ ) {
 
  "use strict"
 
@@ -38,8 +38,8 @@
         , title = this.getTitle()
         , content = this.getContent()
 
-      $tip.find('.title')[ $.type(title) == 'object' ? 'append' : 'html' ](title)
-      $tip.find('.content > *')[ $.type(content) == 'object' ? 'append' : 'html' ](content)
+      $tip.find('.popover-title').html(title)
+      $tip.find('.popover-content > *').html(content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -55,8 +55,6 @@
 
       content = $e.attr('data-content')
         || (typeof o.content == 'function' ? o.content.call($e[0]) :  o.content)
-
-      content = content.toString().replace(/(^\s*|\s*$)/, "")
 
       return content
     }
@@ -89,7 +87,7 @@
   $.fn.popover.defaults = $.extend({} , $.fn.tooltip.defaults, {
     placement: 'right'
   , content: ''
-  , template: '<div class="popover"><div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content"><p></p></div></div></div>'
+  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
   })
 
-}( window.jQuery )
+}( window.jQuery );

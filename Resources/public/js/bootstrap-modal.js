@@ -1,5 +1,5 @@
 /* =========================================================
- * bootstrap-modal.js v2.0.0
+ * bootstrap-modal.js v2.0.2
  * http://twitter.github.com/bootstrap/javascript.html#modals
  * =========================================================
  * Copyright 2012 Twitter, Inc.
@@ -18,7 +18,7 @@
  * ========================================================= */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -26,7 +26,7 @@
   * ====================== */
 
   var Modal = function ( content, options ) {
-    this.options = $.extend({}, $.fn.modal.defaults, options)
+    this.options = options
     this.$element = $(content)
       .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
   }
@@ -41,11 +41,15 @@
 
     , show: function () {
         var that = this
+          , e = $.Event('show')
 
-        if (this.isShown) return
+        this.$element.trigger(e)
+
+        if (this.isShown || e.isDefaultPrevented()) return
+
+        $('body').addClass('modal-open')
 
         this.isShown = true
-        this.$element.trigger('show')
 
         escape.call(this)
         backdrop.call(this, function () {
@@ -72,16 +76,21 @@
     , hide: function ( e ) {
         e && e.preventDefault()
 
-        if (!this.isShown) return
-
         var that = this
+
+        e = $.Event('hide')
+
+        this.$element.trigger(e)
+
+        if (!this.isShown || e.isDefaultPrevented()) return
+
         this.isShown = false
+
+        $('body').removeClass('modal-open')
 
         escape.call(this)
 
-        this.$element
-          .trigger('hide')
-          .removeClass('in')
+        this.$element.removeClass('in')
 
         $.support.transition && this.$element.hasClass('fade') ?
           hideWithTransition.call(this) :
@@ -173,16 +182,17 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('modal')
-        , options = typeof option == 'object' && option
+        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
       if (!data) $this.data('modal', (data = new Modal(this, options)))
       if (typeof option == 'string') data[option]()
-      else data.show()
+      else if (options.show) data.show()
     })
   }
 
   $.fn.modal.defaults = {
       backdrop: true
     , keyboard: true
+    , show: true
   }
 
   $.fn.modal.Constructor = Modal
@@ -202,4 +212,4 @@
     })
   })
 
-}( window.jQuery )
+}( window.jQuery );
