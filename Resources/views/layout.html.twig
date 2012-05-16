@@ -1,11 +1,10 @@
 {% block stylesheets %}
 {% stylesheets
-    filter='cssrewrite,?yui_css'
-    debug=false
+    filter='less,cssembed,?yui_css'
     output="css/bootstrap.min.css"
-    'bundles/millwrighttwitterbootstrap/css/bootstrap.css'
-    'bundles/millwrighttwitterbootstrap/css/custom/*.css'
-    'bundles/millwrighttwitterbootstrap/css/bootstrap-responsive.css'
+    'bundles/millwrighttwitterbootstrap/bootstrap/less/bootstrap.less'
+    'bundles/millwrighttwitterbootstrap/custom/less/*.less'
+    'bundles/millwrighttwitterbootstrap/bootstrap/less/responsive.less'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 {% endstylesheets %}
@@ -13,10 +12,9 @@
 
 {% block javascripts %}
 {% javascripts
-    filter='yui_js'
-    debug=false
-    output="js/bootstrap.all.min.js"
-    'bundles/millwrighttwitterbootstrap/js/*.js'
+    filter='?yui_js'
+    output="js/core.min.js"
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/*.js'
 %}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 {% endjavascripts %}
