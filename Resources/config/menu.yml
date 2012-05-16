@@ -1,5 +1,5 @@
 services:
-    millwright_twitter_bootrap.menu_options:
+    millwright_twitter_bootstrap.menu_options:
         class: "%millwright_menu.options.class%"
         tags:
             - {name: millwright_menu.menu_options}
@@ -10,37 +10,37 @@ services:
                         rendererOptions:
                             rootClass: 'dropdown-menu'
                             currentClass: 'active'
-                
+
                     pills:
                         rendererOptions:
                             rootClass: 'nav-pills'
                             currentClass: 'active'
-                
+
                     tabs:
                         rendererOptions:
                             rootClass: 'nav-tabs'
                             currentClass: 'active'
-            
+
                     list:
                         rendererOptions:
                             rootClass: 'nav-list'
                             currentClass: 'active'
-                            
+
                     stacked_pills:
                         rendererOptions:
                             rootClass: 'nav-pills nav-stacked'
                             currentClass: 'active'
-                
+
                     stacked_tabs:
                         rendererOptions:
                             rootClass: 'nav-tabs nav-stacked'
                             currentClass: 'active'
-                            
+
                     stacked_list:
                         rendererOptions:
                             rootClass: 'nav-list nav-stacked'
                             currentClass: 'active'
-                
+
                     navigation:
                         rendererOptions:
                             currentClass: 'active'
