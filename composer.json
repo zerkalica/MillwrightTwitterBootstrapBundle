@@ -1,0 +1,18 @@
+{
+    "name": "zerkalica/millwright-twitter-bootstrap-bundle",
+    "description": "Integration of twitter bootstrap bundle",
+    "authors": [
+        {
+            "name": "Stefan Zerkalica",
+            "email": "zerkalica@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": ">=2.0,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Millwright\\TwitterBootstrapBundle": ""
+        }
+    }
+}
