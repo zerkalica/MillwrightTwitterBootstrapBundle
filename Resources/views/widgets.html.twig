@@ -29,8 +29,8 @@
 {% block fos_user_login_form_inline %}
 <form action="{{ path("fos_user_security_check") }}" method="post" class="form-inline well">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    <input type="text" id="username" class="input-small span2" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" name="_username" value="{{ last_username }}" />
-    <input type="password" id="password" class="input-small" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" name="_password" />
+    <input type="text" id="username" class="input-medium" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" name="_username" value="{{ last_username }}" />
+    <input type="password" id="password" class="input-medium" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" name="_password" />
     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
     <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
     <input type="submit" class="btn "id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />

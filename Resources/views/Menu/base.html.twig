@@ -71,6 +71,5 @@
 {%- set classes = labelAttributes is not empty and labelAttributes.class is not empty ? [labelAttributes.class] : [] %}
 {%- set classes = classes|merge(['dropdown-toggle']) %}
 {%- set labelAttributes = labelAttributes|merge({'class': classes | join(' ')}) %}
-<a{{ macros.attributes(labelAttributes) }} href="#" data-toggle="dropdown"
->{{ block('label') }}<span class="caret"></span></a>
+<a{{ macros.attributes(labelAttributes) }} href="#" data-toggle="dropdown">{{ block('label') }}<span class="caret"></span></a>
 {% endblock %}
