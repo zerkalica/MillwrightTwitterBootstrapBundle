@@ -1,5 +1,5 @@
 <?php
-namespace Mopa\Bundle\BootstrapBundle\DependencyInjection;
+namespace Millwright\TwitterBootstrapBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
