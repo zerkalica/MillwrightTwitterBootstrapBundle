@@ -1,5 +1,5 @@
 {% extends 'form_div_layout.html.twig' %}
-{% from 'MillwrightMenuBundle::flash.html.twig' import flash %}
+{% from 'MillwrightTwitterBootstrapBundle::flash.html.twig' import flash %}
 
 {# Widgets #}
 
@@ -217,7 +217,7 @@
 
 {% block form_help %}
 {% spaceless %}
-{% if 'checkbox' not in form.get('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MillwrightMenuBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
+{% if 'checkbox' not in form.get('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MopaBootstrapBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
     {% if help_inline %}<p class="help-inline">{{ help_inline|trans|raw }}</p>{%endif %}
 {% endif %}
 {% if help_block %}<p class="help-block">{{ help_block|trans|raw }}</p>{%endif %}
@@ -243,7 +243,7 @@
 {% block widget_addon %}
 {% spaceless %}
 {# prevent deep nesting wrong context copy error #}
-{% from 'MillwrightMenuBundle::icons.html.twig' import icon %}
+{% from 'MillwrightTwitterBootstrapBundle::macroses.html.twig' import icon %}
 <span class="add-on">{{ (widget_addon.text ? widget_addon.text : icon(widget_addon.icon))|raw  }}</span>
 {% endspaceless %}
 {% endblock widget_addon %}
@@ -260,7 +260,7 @@
     {% endfor %}
 {% else %}
     {# prevent deep nesting wrong context copy error #}
-    {% from 'MillwrightMenuBundle::flash.html.twig' import flash %}
+    {% from 'MillwrightTwitterBootstrapBundle::flash.html.twig' import flash %}
     {% for error in errors %}
         {{ flash('error', error.messageTemplate|trans(error.messageParameters, 'validators')) }}
     {% endfor %}

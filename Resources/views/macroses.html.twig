@@ -95,3 +95,7 @@
     {{ _self.form_buttons_block(buttons, bundle) }}
 </form>
 {% endmacro %}
+
+{% macro icon(name, inverted) %}
+    <i class="icon-{{ name }}{% if inverted|default(false) %} icon-white{% endif %}"></i>
+{% endmacro %}
