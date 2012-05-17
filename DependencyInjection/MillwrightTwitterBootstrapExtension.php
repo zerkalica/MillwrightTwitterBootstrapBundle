@@ -19,8 +19,20 @@ class MillwrightTwitterBootstrapExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__
-            . '/../Resources/config'));
-        $loader->load('menu.yml');
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $yamlloader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $yamlloader->load("form_extensions.yml");
+        $yamlloader->load("menu.yml");
+
+        if(isset($config['form'])){
+            foreach($config['form'] as $key => $value){
+                $container->setParameter(
+                    'millwright.form.'.$key,
+                    $value
+                );
+            }
+        }
     }
 }
