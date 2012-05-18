@@ -1,44 +1,3 @@
-{% macro message(message, class) %}
-    {% if message %}
-        <div class="alert {{ class }}">
-            <a class="close" data-dismiss="alert">×</a>
-            {{ message }}
-        </div>
-    {% endif %}
-{% endmacro %}
-
-{% macro message_error(message) %}
-    {{ _self.message(message, 'alert-error') }}
-{% endmacro %}
-
-{% macro message_warning(message) %}
-    {{ _self.message(message) }}
-{% endmacro %}
-
-{% macro message_success(message) %}
-    {{ _self.message(message, 'alert-success') }}
-{% endmacro %}
-
-{% macro message_info(message) %}
-    {{ _self.message(message, 'alert-info') }}
-{% endmacro %}
-
-
-{% macro dialog_modal(id, header, body, footer) %}
-<div class="modal" id="{{ id }}">
-    <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>
-        <h3>{{ header }}</h3>
-    </div>
-    <div class="modal-body">
-        {{ body }}
-    </div>
-    <div class="modal-footer">
-        {{ footer }}
-    </div>
-</div> <!-- /modal -->
-{% endmacro dialog_modal %}
-
 {% macro form_button(button) %}
     {% import 'knp_menu.html.twig' as macros %}
     {%- set primary = button.primary is defined ? button.primary : 0 %}
@@ -53,7 +12,6 @@
     {%- set attributes = attributes|merge({'type': type}) %}
     <button{{ macros.attributes(attributes) }}>{{ button.label|trans(params, bundle) }}</button>
 {% endmacro %}
-
 
 {% macro form_buttons(buttons, bundle) %}
     {% set primary = 1 %}
@@ -94,8 +52,4 @@
     </fieldset>
     {{ _self.form_buttons_block(buttons, bundle) }}
 </form>
-{% endmacro %}
-
-{% macro icon(name, inverted) %}
-    <i class="icon-{{ name }}{% if inverted|default(false) %} icon-white{% endif %}"></i>
 {% endmacro %}

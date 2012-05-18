@@ -243,7 +243,7 @@
 {% block widget_addon %}
 {% spaceless %}
 {# prevent deep nesting wrong context copy error #}
-{% from 'MillwrightTwitterBootstrapBundle::macroses.html.twig' import icon %}
+{% from 'MillwrightTwitterBootstrapBundle::icons.html.twig' import icon %}
 <span class="add-on">{{ (widget_addon.text ? widget_addon.text : icon(widget_addon.icon))|raw  }}</span>
 {% endspaceless %}
 {% endblock widget_addon %}

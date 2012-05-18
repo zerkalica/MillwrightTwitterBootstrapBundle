@@ -1,31 +1,3 @@
-{% block navbar_wrapper %}
-<nav id="page-navbar" role="navigation" class="navbar">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-        {{ block('navbar_markup') }}
-        </div> <!-- /container -->
-    </div> <!-- /navbar-inner -->
-</nav> <!-- /page-navbar -->
-{% endblock navbar_wrapper %}
-
-{% block navbar_markup %}
-    {{ block('navbar_buttons') }}
-    <a class="brand" href="{{ path('homepage') }}">{{ block('project_name') }}</a>
-    {{ block('navbar_projectname') }}
-    {{ block('navbar_menu') }}
-    <p class="navbar-text pull-right">
-        {{ block('navbar_text') }}
-    </p>
-{% endblock navbar_markup %}
-
-{% block navbar_buttons %}
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-{% endblock navbar_buttons %}
-
 {% block fos_user_login_form_inline %}
 <form action="{{ path("fos_user_security_check") }}" method="post" class="form-inline well">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

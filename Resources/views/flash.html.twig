@@ -1,15 +1,31 @@
 {% macro flash(type, message, close, use_raw) %}
     <div class="alert alert-{{ type }}" data-alert="alert">
-	{% if close|default(false) %}
+        {% if close|default(false) %}
             <a class="close" data-dismiss="alert" href="#">×</a>
-	{% endif %}
-	
-	{% if use_raw|default(false) %}
-	    {{ message|trans|raw }}    
-	{% else %}
-	    {{ message|trans }}
-	{% endif %}
+        {% endif %}
+
+        {% if use_raw|default(false) %}
+            {{ message|trans|raw }}
+        {% else %}
+            {{ message|trans }}
+        {% endif %}
     </div>
+{% endmacro %}
+
+{% macro flash_error(message, mesage, close, user_raw) %}
+    {{ _self.flash('error', mesage, close, user_raw) }}
+{% endmacro %}
+
+{% macro flash_warning(message, mesage, close, user_raw) %}
+    {{ _self.flash('warning', mesage, close, user_raw) }}
+{% endmacro %}
+
+{% macro flash_success(message, mesage, close, user_raw) %}
+    {{ _self.flash('success', mesage, close, user_raw) }}
+{% endmacro %}
+
+{% macro flash_info(message, mesage, close, user_raw) %}
+    {{ _self.flash('info', mesage, close, user_raw) }}
 {% endmacro %}
 
 {% macro session_flash(type, close, use_raw, class) %}
