@@ -17,7 +17,7 @@
     {% set primary = 1 %}
     {% for id, button in buttons %}
         {% if button.primary is not defined %}
-            {%- set button = button|merge({'primary': 1}) %}
+            {%- set button = button|merge({'primary': primary}) %}
         {% endif %}
         {% if button.id is not defined %}
             {%- set button = button|merge({'id': 'btn-' ~ id}) %}

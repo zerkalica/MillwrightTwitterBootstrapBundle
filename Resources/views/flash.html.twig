@@ -12,20 +12,20 @@
     </div>
 {% endmacro %}
 
-{% macro flash_error(message, mesage, close, user_raw) %}
-    {{ _self.flash('error', mesage, close, user_raw) }}
+{% macro flash_error(message, close, user_raw) %}
+    {{ _self.flash('error', message, close, user_raw) }}
 {% endmacro %}
 
-{% macro flash_warning(message, mesage, close, user_raw) %}
-    {{ _self.flash('warning', mesage, close, user_raw) }}
+{% macro flash_warning(message, close, user_raw) %}
+    {{ _self.flash('warning', message, close, user_raw) }}
 {% endmacro %}
 
-{% macro flash_success(message, mesage, close, user_raw) %}
-    {{ _self.flash('success', mesage, close, user_raw) }}
+{% macro flash_success(message, close, user_raw) %}
+    {{ _self.flash('success', message, close, user_raw) }}
 {% endmacro %}
 
-{% macro flash_info(message, mesage, close, user_raw) %}
-    {{ _self.flash('info', mesage, close, user_raw) }}
+{% macro flash_info(message, close, user_raw) %}
+    {{ _self.flash('info', message, close, user_raw) }}
 {% endmacro %}
 
 {% macro session_flash(type, close, use_raw, class) %}
