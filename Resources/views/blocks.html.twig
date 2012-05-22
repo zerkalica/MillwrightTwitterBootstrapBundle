@@ -1,0 +1,8 @@
+{% macro key_value(translation_domain, list) %}
+    <dl>
+        {% for id, value in list %}
+        <dt>{{ id | trans({}, translation_domain)  }}</dt>
+        <dd>{{ value }}</dd>
+        {% endfor %}
+    </dl>
+{% endmacro %}
