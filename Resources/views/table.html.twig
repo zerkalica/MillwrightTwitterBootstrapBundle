@@ -1,11 +1,17 @@
-{% macro table_begin(translation_domain, columns) %}
+{% macro table_begin(translation_domain, columns, pagination) %}
 <table class="table table-striped">
     <thead>
         <tr>
             {% for col in columns %}
-            <th class="{{ col }}">
-                {{ col | trans({}, translation_domain) }}
-            </th>
+                {% if col is iterable %}
+                    <th class="{{ col.label }}">
+                        {{ pagination.sortable(col.label, col.key, { 'translationDomain': translation_domain })|raw }}
+                    </th>
+                {% else %}
+                    <th class="{{ col }}">
+                        {{ col | trans({}, translation_domain) }}
+                    </th>
+                {% endif %}
             {% endfor %}
         </tr>
     </thead>
