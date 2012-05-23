@@ -1,0 +1,18 @@
+{% macro table_begin(translation_domain, columns) %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            {% for col in columns %}
+            <th class="{{ col }}">
+                {{ col | trans({}, translation_domain) }}
+            </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+{% endmacro table_begin %}
+
+{% macro table_end() %}
+    </tbody>
+</table>
+{% endmacro table_end %}
