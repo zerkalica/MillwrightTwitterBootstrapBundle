@@ -33,7 +33,7 @@
             <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
         </li>
     {% else %}
-        <li class="next disabled"><a href="#">{{ page }}</a></li>
+        <li class="next disabled"><a href="#">&gt;</a></li>
     {% endif %}
 
     {% if last is defined and current != last %}
