@@ -19,7 +19,7 @@ class ErrorTypeFormTypeExtension extends AbstractTypeExtension
     {
         $view->addVars(array(
             'error_type'  => $options['error_type'],
-            'error_dealy' => $options['error_dealy'],
+            'error_delay' => $options['error_delay'],
         ));
     }
 

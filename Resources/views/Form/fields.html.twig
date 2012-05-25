@@ -8,18 +8,18 @@
     {% set type = type|default('text') %}
     {% if type != 'hidden' and widget_addon.text|default(false) or widget_addon.icon|default(false) %}
     <div class="input-{{ widget_addon.append ? 'append':'prepend' }}">
-    	{% if not widget_addon.append %}
-    	{{ block('widget_addon') }}
-    	{% endif %}
+        {% if not widget_addon.append %}
+        {{ block('widget_addon') }}
+        {% endif %}
     {% endif %}
     {% if not widget_remove_btn|default(false) %}
         {% set attr = attr|merge({'class': attr.class|default('') ~ ' not-removable'}) %}
     {% endif %}
     <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     {% if type != 'hidden' and widget_addon.text|default(false) or widget_addon.icon|default(false) %}
-    	{% if widget_addon.append %}
-    	{{ block('widget_addon') }}
-    	{% endif %}
+        {% if widget_addon.append %}
+        {{ block('widget_addon') }}
+        {% endif %}
     </div>
     {% endif %}
 {% endspaceless %}
@@ -52,7 +52,7 @@
     {% for child in form %}
             <label class="{{ widget_type ~ (multiple ? ' checkbox' : ' radio') }}">
                 {{ form_widget(child, {'attr': {'class': attr.widget_class|default('')}}) }}
-                {{ child.get('label')|trans({}, translation_domain) }}
+                {{ child.getVar('label')|trans({}, translation_domain) }}
             </label>
     {% endfor %}
     {{ block('form_message') }}
@@ -62,11 +62,11 @@
 
 {% block checkbox_widget %}
 {% spaceless %}
-{% if form.hasParent() and 'choice' not in form.getParent().get('types') %}
+{% if form.hasParent() and 'choice' not in form.getParent().getVar('types') %}
   <label class="checkbox">
 {% endif %}
       <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}> {{ help_inline|trans|raw }}
-{% if form.hasParent() and 'choice' not in form.getParent().get('types') %}
+{% if form.hasParent() and 'choice' not in form.getParent().getVar('types') %}
 {% set help_inline = false %}
 </label>
 {% endif %}
@@ -145,9 +145,9 @@
 {% block form_label %}
 {% spaceless %}
     {% if label_render %}
-	    {% if single_control %}
-	        {% set label_attr = label_attr|merge({'for': id}) %}
-	    {% endif %}
+        {% if single_control is defined and single_control %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
         {% if required %}
             {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ ' required'}) %}
         {% endif %}
@@ -176,14 +176,14 @@
         </div>
     {% endif %}
     {% for child in form %}
-        {% if 'hidden' not in child.get('types') %}
-        	{% if 'collection' in form.get('types') %}
-        	<div class="collection-item">
-        	{% endif %}
+        {% if 'hidden' not in child.getVar('types') %}
+            {% if 'collection' in form.getVar('types') %}
+            <div class="collection-item">
+            {% endif %}
             {{ form_row(child) }}
-        	{% if 'collection' in form.get('types') %}
-        	</div>
-        	{% endif %}
+            {% if 'collection' in form.getVar('types') %}
+            </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endspaceless %}
@@ -197,7 +197,7 @@
     {% if widget_remove_btn is defined %}
         {{ block('form_widget_remove_btn') }}
     {% endif -%}
-    {% if form.children|length == 0 %}
+    {% if form.all|length == 0 %}
         {{ block('form_message') }}
     {% endif %}
     {{ block('widget_control_group_end') }}
@@ -217,7 +217,7 @@
 
 {% block form_help %}
 {% spaceless %}
-{% if 'checkbox' not in form.get('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MopaBootstrapBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
+{% if 'checkbox' not in form.getVar('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MopaBootstrapBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
     {% if help_inline %}<p class="help-inline">{{ help_inline|trans|raw }}</p>{%endif %}
 {% endif %}
 {% if help_block %}<p class="help-block">{{ help_block|trans|raw }}</p>{%endif %}
@@ -227,7 +227,7 @@
 {% block form_widget_add_btn %}
 {% spaceless %}
     {% if widget_add_btn %}
-    <input type="button" class="btn" data-collection-add-btn="{{ form.get('id')}}_control_group" value="{{ widget_add_btn }}">
+    <input type="button" class="btn" data-collection-add-btn="{{ form.getVar('id')}}_control_group" value="{{ widget_add_btn }}">
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_add_btn %}
@@ -235,7 +235,7 @@
 {% block form_widget_remove_btn %}
 {% spaceless %}
     {% if widget_remove_btn %}
-    <input type="button" class="btn" data-collection-remove-btn="{{ form.parent.get('id')}}_control_group" value="{{ widget_remove_btn }}">
+    <input type="button" class="btn" data-collection-remove-btn="{{ form.parent.getVar('id')}}_control_group" value="{{ widget_remove_btn }}">
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_remove_btn %}
@@ -290,7 +290,7 @@
     {% set form = form.parent %}
     {{ block('error_type') }}
 {% elseif form.hasParent() == 0 %}
-    {{ form.get('error_type') | default('inline') }}
+    {{ form.getVar('error_type') | default('inline') }}
 {% endif %}
 {% endspaceless %}
 {% endblock error_type %}
@@ -301,13 +301,13 @@
 {% spaceless %}
 {% if widget_control_group|default(false) or not form.hasParent() %}
     {% if prototype is defined %}
-    	{% set data_prototype %}
-    	{% spaceless %}
-    	<div class="collection-item">
-    		{{ form_row(prototype) }}
-    	</div>
-    	{% endspaceless %}
-    	{% endset %}
+        {% set data_prototype %}
+        {% spaceless %}
+        <div class="collection-item">
+            {{ form_row(prototype) }}
+        </div>
+        {% endspaceless %}
+        {% endset %}
         {% set widget_control_group_attr = widget_control_group_attr|merge({'data-prototype': data_prototype|e}) %}
     {% endif %}
     {% set widget_control_group_attr = widget_control_group_attr|merge({'id': id ~ '_control_group', 'class': widget_control_group_attr.class|default('') ~ ' control-group'}) %}
@@ -315,10 +315,10 @@
         {% set widget_control_group_attr = widget_control_group_attr|merge({'class': widget_control_group_attr.class|default('') ~ ' error'}) %}
     {% endif %}
     <div {% for attrname,attrvalue in widget_control_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
-    {% if form.children|length > 0 and form.hasParent() and show_child_legend %}
+    {% if form.all|length > 0 and form.hasParent() and show_child_legend %}
         {{ block('form_legend') }}
-	{% else %}
-    	{{ form_label(form, label|default(null)) }}
+    {% else %}
+        {{ form_label(form, label|default(null)) }}
     {% endif %}
     {% if widget_controls|default(false) or not form.hasParent() %}
         {% set widget_controls_attr = widget_controls_attr|merge({'class': widget_controls_attr.class|default('') ~ ' controls'}) %}
