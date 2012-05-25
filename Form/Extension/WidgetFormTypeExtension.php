@@ -20,7 +20,7 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
 
     public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
-        $view->setVars(array(
+        $view->addVars(array(
             'widget_control_group' => $options['widget_control_group'],
             'widget_controls' => $options['widget_controls'],
             'widget_addon' => $options['widget_addon'],
@@ -34,7 +34,7 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolover->setDefaults(array(
+        $resolver->setDefaults(array(
             'widget_control_group' => true,
             'widget_controls' => true,
             'widget_addon' => array(
