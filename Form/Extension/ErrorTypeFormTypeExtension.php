@@ -3,8 +3,8 @@ namespace Millwright\TwitterBootstrapBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormViewInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ErrorTypeFormTypeExtension extends AbstractTypeExtension
 {
@@ -13,12 +13,12 @@ class ErrorTypeFormTypeExtension extends AbstractTypeExtension
 	public function __construct(array $options){
 		$this->error_type = $options['error_type'];
 	}
-	public function buildForm(FormBuilder $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
         $builder->setAttribute('error_type', $options['error_type']);
         $builder->setAttribute('error_delay', $options['error_delay']);
 	}
-	public function buildView(FormView $view, FormInterface $form)
+	public function buildView(FormViewInterface $view, FormInterface $form, array $options)
 	{
 	    $view->set('error_type', $form->getAttribute('error_type'));
 	    $view->set('error_delay', $form->getAttribute('error_delay'));

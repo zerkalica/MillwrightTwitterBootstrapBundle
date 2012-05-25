@@ -3,20 +3,20 @@ namespace Millwright\TwitterBootstrapBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormViewInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Exception\CreationException;
 
 class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
 {
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->setAttribute('widget_add_btn', $options['widget_add_btn']);
         $builder->setAttribute('widget_remove_btn', $options['widget_remove_btn']);
     }
 
-    public function buildView(FormView $view, FormInterface $form)
+    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
 		$view->set('widget_add_btn', @$form->getAttribute('allow_add') ? $form->getAttribute('widget_add_btn') : null);
 
