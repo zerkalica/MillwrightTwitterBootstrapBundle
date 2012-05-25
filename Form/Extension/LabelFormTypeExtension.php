@@ -23,7 +23,7 @@ class LabelFormTypeExtension extends AbstractTypeExtension
     {
         $resolver->setDefaults(array(
             'label_render' => true,
-        );
+        ));
     }
 
     public function getExtendedType()

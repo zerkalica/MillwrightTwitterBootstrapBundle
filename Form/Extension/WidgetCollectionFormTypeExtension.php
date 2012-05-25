@@ -36,7 +36,7 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
         $resolver->setDefaults(array(
             'widget_add_btn' => "add",
             'widget_remove_btn' => null,
-        );
+        ));
     }
 
     public function getExtendedType()

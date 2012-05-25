@@ -38,7 +38,7 @@ class LegendFormTypeExtension extends AbstractTypeExtension
             'render_fieldset'   => $this->render_fieldset,
             'show_legend'       => $this->show_legend,
             'show_child_legend' => $this->show_child_legend,
-        );
+        ));
     }
 
     public function getExtendedType()

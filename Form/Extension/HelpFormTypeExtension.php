@@ -30,7 +30,7 @@ class HelpFormTypeExtension extends AbstractTypeExtension
             'help_inline' => null,
             'help_block' => null,
             'help_label' => null,
-        );
+        ));
     }
 
     public function getExtendedType()
