@@ -15,16 +15,12 @@ class ErrorTypeFormTypeExtension extends AbstractTypeExtension
         $this->error_type = $options['error_type'];
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->setAttribute('error_type', $options['error_type']);
-        $builder->setAttribute('error_delay', $options['error_delay']);
-    }
-
     public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
-        $view->set('error_type', $form->getAttribute('error_type'));
-        $view->set('error_delay', $form->getAttribute('error_delay'));
+        $view->addVars(array(
+            'error_type'  => $options['error_type'],
+            'error_dealy' => $options['error_dealy'],
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
