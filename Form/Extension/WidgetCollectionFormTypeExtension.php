@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Exception\CreationException;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
 {
@@ -18,7 +19,7 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
 
     public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
-		$view->set('widget_add_btn', @$form->getAttribute('allow_add') ? $form->getAttribute('widget_add_btn') : null);
+        $view->set('widget_add_btn', @$form->getAttribute('allow_add') ? $form->getAttribute('widget_add_btn') : null);
 
         //todo make array, and add
         // add check function
@@ -30,13 +31,14 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
         // remove failed function
     }
 
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'widget_add_btn' => "add",
             'widget_remove_btn' => null,
         );
     }
+
     public function getExtendedType()
     {
         return 'form';

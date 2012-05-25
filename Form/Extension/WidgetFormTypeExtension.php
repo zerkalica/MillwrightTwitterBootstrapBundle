@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Exception\CreationException;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class WidgetFormTypeExtension extends AbstractTypeExtension
 {
@@ -41,9 +42,9 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
         $view->set('widget_controls_attr',   $form->getAttribute('widget_controls_attr'));
     }
 
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolover->setDefaults(array(
             'widget_control_group' => true,
             'widget_controls' => true,
             'widget_addon' => array(
@@ -56,17 +57,15 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
             'widget_type' => '',
             'widget_control_group_attr' => array(),
             'widget_controls_attr' => array(),
-        );
-    }
-    public function getAllowedOptionValues()
-    {
-        return array(
+        ));
+        $resolver->setAllowedValues(array(
             'widget_type' => array(
                 'inline',
                 '',
             )
-        );
+        ));
     }
+
     public function getExtendedType()
     {
         return 'form';

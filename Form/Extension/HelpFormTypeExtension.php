@@ -5,6 +5,7 @@ use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class HelpFormTypeExtension extends AbstractTypeExtension
 {
@@ -23,14 +24,15 @@ class HelpFormTypeExtension extends AbstractTypeExtension
         $view->set('help_label', $form->getAttribute('help_label'));
     }
 
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'help_inline' => null,
             'help_block' => null,
             'help_label' => null,
         );
     }
+
     public function getExtendedType()
     {
         return 'form';
