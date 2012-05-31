@@ -5,20 +5,10 @@
         <dd>{{ value }}</dd>
         {% endfor %}
     </dl>
-{% endmacro %}
-
-{% macro action_group(translationalDomain, actions_data) %}
-<ul class="nav nav-list">
-    {% for item in actions_data %}
-    <li>
-        {{ _self.link(item.route, item.routeParams, item.label, translationalDomain) }}
-    </li>
-    {% endfor%}
-</ul>
-{% endmacro %}
+{% endmacro key_value %}
 
 {% macro link(route, routeParams, label, translationalDomain) %}
-    <a href="{{ path(route, routeParams) }}">
-        {{ label|trans([], translationalDomain) }}
-    </a>
-{% endmacro %}
+<a href="{{ path(route, routeParams) }}" id="{{ route }}">
+    {{ label|trans([], translationalDomain) }}
+</a>
+{% endmacro link %}
