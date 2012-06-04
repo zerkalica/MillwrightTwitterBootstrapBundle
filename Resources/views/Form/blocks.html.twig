@@ -31,9 +31,9 @@
 {% endmacro %}
 
 {% macro form_buttons_block(buttons, bundle) %}
-    <div class="form-actions">
+    <fieldset class="form-actions">
         {{ _self.form_buttons(buttons, bundle) }}
-    </div>
+    </fieldset>
 {% endmacro %}
 
 {% macro form_block(form, attributes, buttons, title, bundle) %}
@@ -44,12 +44,10 @@
     {% endif %}
 
 <form {{ form_enctype(form) }} {{ macros.attributes(attributes) }}>
-    <fieldset>
-        {% if title is not empty %}
-        <legend>{{ title | trans({}, bundle) }}</legend>
-        {% endif %}
-        {{ form_widget(form) }}
-    </fieldset>
+    {% if title is not empty %}
+    <legend>{{ title | trans({}, bundle) }}</legend>
+    {% endif %}
+    {{ form_widget(form) }}
     {{ _self.form_buttons_block(buttons, bundle) }}
 </form>
 {% endmacro %}

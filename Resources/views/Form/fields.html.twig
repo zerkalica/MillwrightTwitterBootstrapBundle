@@ -80,7 +80,7 @@
 {% else %}
         {% set attr = attr|merge({'class': attr.class|default('inline')}) %}
             {{ date_pattern|replace({
-                '{{ year }}':  form_widget(form.year, {'attr': {'class': attr.widget_class|default('') ~ ' input-mini'}}),
+                '{{ year }}':  form_widget(form.year, {'attr': {'class': attr.widget_class|default('') ~ ' input-small'}}),
                 '{{ month }}': form_widget(form.month, {'attr': {'class': attr.widget_class|default('') ~ ' input-mini'}}),
                 '{{ day }}':   form_widget(form.day, {'attr': {'class': attr.widget_class|default('') ~ ' input-mini'}}),
             })|raw }}
@@ -122,7 +122,6 @@
 
 {% block percent_widget %}
 {% spaceless %}
-    {% set widget_addon = widget_addon|merge({'text': '%', 'append': true}) %}
     {{ block('form_widget_simple') }}
 {% endspaceless %}
 {% endblock percent_widget %}
@@ -145,7 +144,7 @@
 {% block form_label %}
 {% spaceless %}
     {% if label_render %}
-        {% if single_control is defined and single_control %}
+        {% if not compound %}
             {% set label_attr = label_attr|merge({'for': id}) %}
         {% endif %}
         {% if required %}
@@ -217,7 +216,7 @@
 
 {% block form_help %}
 {% spaceless %}
-{% if 'checkbox' not in form.getVar('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MopaBootstrapBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
+{% if 'checkbox' not in form.getVar('types') %}{# checkbox widget/choice widget problem see https://github.com/phiamo/MillwrightTwitterBootstrapBundle/commit/67406a16b38e5b622fffdd5b9c8a8707ca73f493#commitcomment-1295951 # #}
     {% if help_inline %}<p class="help-inline">{{ help_inline|trans|raw }}</p>{%endif %}
 {% endif %}
 {% if help_block %}<p class="help-block">{{ help_block|trans|raw }}</p>{%endif %}
@@ -227,7 +226,9 @@
 {% block form_widget_add_btn %}
 {% spaceless %}
     {% if widget_add_btn %}
-    <input type="button" class="btn" data-collection-add-btn="{{ form.getVar('id')}}_control_group" value="{{ widget_add_btn }}">
+    {% set button_type = 'add' %}
+    {% set button_values = widget_add_btn %}
+    {{ block('collection_button') }}
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_add_btn %}
@@ -235,10 +236,23 @@
 {% block form_widget_remove_btn %}
 {% spaceless %}
     {% if widget_remove_btn %}
-    <input type="button" class="btn" data-collection-remove-btn="{{ form.parent.getVar('id')}}_control_group" value="{{ widget_remove_btn }}">
+    {% set button_type = 'remove' %}
+    {% set button_values = widget_remove_btn %}
+    {{ block('collection_button') }}
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_remove_btn %}
+
+{% block collection_button %}
+<a {% for attrname,attrvalue in button_values.attr %} {{attrname}}="{{attrvalue}}"{% endfor %} data-collection-{{ button_type }}-btn="{{ form.getVar('id') }}_control_group">
+{% if button_values.icon is defined %}
+<i class="icon-{{ button_values.icon }} {% if button_values.icon_color is defined %}icon-{{ button_values.icon_color }}{% endif %}"></i>
+{% endif %}
+{{ button_values.label }}
+</a>
+
+{% endblock collection_button %}
+
 
 {% block widget_addon %}
 {% spaceless %}
@@ -287,7 +301,7 @@
 {% if error_type %}
     {{ error_type }}
 {% elseif form.hasParent() != 0 %}
-    {% set form = form.parent %}
+    {% set form = form.getParent() %}
     {{ block('error_type') }}
 {% elseif form.hasParent() == 0 %}
     {{ form.getVar('error_type') | default('inline') }}

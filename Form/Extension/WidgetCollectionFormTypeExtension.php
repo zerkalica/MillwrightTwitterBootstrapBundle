@@ -60,7 +60,7 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'widget_add_btn'    => 'add',
+            'widget_add_btn'    => null,
             'widget_remove_btn' => null,
         ));
     }
