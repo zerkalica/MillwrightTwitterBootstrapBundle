@@ -22,8 +22,8 @@ class HelpFormTypeExtension extends AbstractTypeExtension
     {
         $resolver->setDefaults(array(
             'help_inline' => null,
-            'help_block' => null,
-            'help_label' => null,
+            'help_block'  => null,
+            'help_label'  => null,
         ));
     }
 

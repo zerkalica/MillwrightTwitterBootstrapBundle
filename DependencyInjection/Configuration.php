@@ -18,19 +18,23 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('millwright');
+        $rootNode    = $treeBuilder->root('millwright_bootstrap');
 
         $this->addFormConfig($rootNode);
 
         return $treeBuilder;
     }
 
-    protected function addFormConfig(ArrayNodeDefinition $rootNode){
+    protected function addFormConfig(ArrayNodeDefinition $rootNode)
+    {
         $rootNode
             ->children()
                 ->arrayNode('form')
                     ->addDefaultsIfNotSet()
                     ->children()
+                        ->booleanNode('templating')
+                            ->defaultValue(true)
+                            ->end()
                         ->booleanNode('render_fieldset')
                             ->defaultValue(true)
                             ->end()
@@ -43,9 +47,51 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('error_type')
                             ->defaultValue(null)
                             ->end()
+                        ->arrayNode('collection')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('widget_remove_btn')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->arrayNode('attr')
+                                            ->addDefaultsIfNotSet()
+                                            ->children()
+                                                ->scalarNode('class')
+                                                    ->defaultValue("btn")
+                                                ->end()
+                                            ->end()
+                                        ->end()
+                                        ->scalarNode('icon')
+                                            ->defaultValue(null)
+                                        ->end()
+                                        ->scalarNode('icon_color')
+                                            ->defaultValue(null)
+                                        ->end()
+                                    ->end()
+                                 ->end()
+                                ->arrayNode('widget_add_btn')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->arrayNode('attr')
+                                            ->addDefaultsIfNotSet()
+                                            ->children()
+                                                ->scalarNode('class')
+                                                    ->defaultValue("btn")
+                                                ->end()
+                                            ->end()
+                                        ->end()
+                                        ->scalarNode('icon')
+                                            ->defaultValue(null)
+                                        ->end()
+                                        ->scalarNode('icon_color')
+                                            ->defaultValue(null)
+                                        ->end()
+                                    ->end()
+                                 ->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
-            ->end()
-            ;
+            ->end();
     }
 }

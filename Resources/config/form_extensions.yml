@@ -1,35 +1,31 @@
 services:
-    millwright.form.help_extension:
+    millwright_bootstrap.form.help_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\HelpFormTypeExtension
            tags:
-                - { name: form.type_extension, alias: form } 
+                - { name: form.type_extension, alias: form }
 
-    millwright.form.label_extension:
-           class: Millwright\TwitterBootstrapBundle\Form\Extension\LabelFormTypeExtension
-           tags:
-                - { name: form.type_extension, alias: form } 
-
-    millwright.form.legend_extension:
+    millwright_bootstrap.form.legend_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\LegendFormTypeExtension
            arguments:
-                - { render_fieldset: %millwright.form.render_fieldset%, show_legend: %millwright.form.show_legend%, show_child_legend: %millwright.form.show_child_legend% }
+                - { render_fieldset: %millwright_bootstrap.form.render_fieldset%, show_legend: %millwright_bootstrap.form.show_legend%, show_child_legend: %millwright_bootstrap.form.show_child_legend% }
            tags:
-                - { name: form.type_extension, alias: form } 
+                - { name: form.type_extension, alias: form }
 
-    millwright.form.error_type_extension:
+    millwright_bootstrap.form.error_type_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\ErrorTypeFormTypeExtension
            arguments:
-                - { error_type: %millwright.form.error_type% }
+                - { error_type: %millwright_bootstrap.form.error_type% }
            tags:
-                - { name: form.type_extension, alias: form } 
+                - { name: form.type_extension, alias: form }
 
-    millwright.form.widget_extension:
+    millwright_bootstrap.form.widget_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\WidgetFormTypeExtension
            tags:
-                - { name: form.type_extension, alias: form } 
+                - { name: form.type_extension, alias: form }
 
-    millwright.form.widget_collection_extension:
+    millwright_bootstrap.form.widget_collection_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\WidgetCollectionFormTypeExtension
+           arguments:
+                - { widget_add_btn: %millwright_bootstrap.form.collection.widget_add_btn%, widget_remove_btn: %millwright_bootstrap.form.collection.widget_remove_btn% }
            tags:
-                - { name: form.type_extension, alias: form } 
-
+                - { name: form.type_extension, alias: form }
