@@ -11,11 +11,22 @@
 {% endblock stylesheets %}
 
 {% block javascripts %}
-{% javascripts
+{%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/*.js'
-%}
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-collapse.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-dropdown.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-modal.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-scrollspy.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-tab.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-tooltip.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-popover.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-transition.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-typeahead.js'
+-%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 {% endjavascripts %}
 {% endblock javascripts %}
