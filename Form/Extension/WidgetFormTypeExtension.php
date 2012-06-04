@@ -14,9 +14,9 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
         'widget_control_group'      => true,
         'widget_controls'           => true,
         'widget_addon'              => array(
-            'append' => false,
             'icon'   => null,
             'text'   => null,
+            'type'   => null,
         ),
         'widget_prefix'             => null,
         'widget_suffix'             => null,
@@ -30,8 +30,8 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
         if (!is_array($options['widget_addon'])) {
             throw new CreationException("The 'widget_addon' option must be an array");
         } else {
-            $defaults                = $this->defaultOptions;
-            $options['widget_addon'] = array_merge($defaults['widget_addon'], $options['widget_addon']);
+            $defaults = $this->defaultOptions;
+            $options['widget_addon'] = array_merge( $defaults['widget_addon'], $options['widget_addon']);
         }
         if (in_array('percent', $view->getVar('types'))) {
             if ($options['widget_addon']['text'] === null && $options['widget_addon']['icon'] === null) {
