@@ -34,14 +34,9 @@
   margin-top: 8px;
   margin-left: 2px;
 }
-.dropdown a:focus .caret,
-.dropdown a:hover .caret,
+.dropdown:hover .caret,
 .open .caret {
   .opacity(100);
-}
-
-.navbar .nav .open > a {
-  color: @navbarLinkColorActive;
 }
 
 // The dropdown menu (ul)
@@ -94,13 +89,11 @@
 // Hover state
 // -----------
 .dropdown-menu li > a:hover,
-.dropdown-menu li > a:focus,
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
   color: @dropdownLinkColorHover;
   text-decoration: none;
   background-color: @dropdownLinkBackgroundHover;
-  outline: 0;
 }
 
 // Open state for the dropdown

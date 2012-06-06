@@ -46,7 +46,7 @@
     }
 
   , to: function (pos) {
-      var $active = this.$element.find('.item.active')
+      var $active = this.$element.find('.active')
         , children = $active.parent().children()
         , activePos = children.index($active)
         , that = this
@@ -68,10 +68,6 @@
 
   , pause: function (e) {
       if (!e) this.paused = true
-      if (this.$element.find('.next, .prev').length && $.support.transition.end) {
-        this.$element.trigger($.support.transition.end)
-        this.cycle()
-      }
       clearInterval(this.interval)
       this.interval = null
       return this
@@ -94,9 +90,7 @@
         , direction = type == 'next' ? 'left' : 'right'
         , fallback  = type == 'next' ? 'first' : 'last'
         , that = this
-        , e = $.Event('slide', {
-            relatedTarget: $next[0]
-          })
+        , e = $.Event('slide')
 
       this.sliding = true
 
@@ -144,10 +138,9 @@
       var $this = $(this)
         , data = $this.data('carousel')
         , options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
-        , action = typeof option == 'string' ? option : options.slide
       if (!data) $this.data('carousel', (data = new Carousel(this, options)))
       if (typeof option == 'number') data.to(option)
-      else if (action) data[action]()
+      else if (typeof option == 'string' || (option = options.slide)) data[option]()
       else if (options.interval) data.cycle()
     })
   }
