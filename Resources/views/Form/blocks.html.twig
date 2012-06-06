@@ -1,53 +1,195 @@
-{% macro form_button(button) %}
+{#
+    Form block begin
+
+    @param Symfony\Component\Form\Form form       form object
+    @param string                      action     form action url
+    @param array                       attributes form tag attributes
+    @param string                      title      legend title key
+    @param string                      domain     title translate domain
+    @param string                      translation_params title translation params
+#}
+{% macro begin(form, action, attributes, title, domain, translation_params) %}
     {% import 'knp_menu.html.twig' as macros %}
-    {%- set primary = button.primary is defined ? button.primary : 0 %}
-    {%- set classes = button.class is defined ? [button.class, 'btn'] : ['btn'] %}
-    {%- if primary %}
-        {%- set classes = classes|merge(['btn-primary']) %}
-    {% endif  %}
-    {%- set bundle = button.bundle is defined ? button.bundle : 'MillwrightTwitterBootstrapBundle' %}
-    {%- set params = button.params is defined ? button.params : {} %}
-    {%- set attributes = {'class': classes|join(' '), 'id': button.id} %}
-    {%- set type = button.type is defined ? button.type : 'submit' %}
-    {%- set attributes = attributes|merge({'type': type}) %}
-    <button{{ macros.attributes(attributes) }}>{{ button.label|trans(params, bundle) }}</button>
-{% endmacro %}
 
-{% macro form_buttons(buttons, bundle) %}
-    {% set primary = 1 %}
-    {% for id, button in buttons %}
-        {% if button.primary is not defined %}
-            {%- set button = button|merge({'primary': primary}) %}
-        {% endif %}
-        {% if button.id is not defined %}
-            {%- set button = button|merge({'id': 'btn-' ~ id}) %}
-        {% endif %}
-        {% if button.bundle is not defined %}
-            {%- set button = button|merge({'bundle': bundle}) %}
-        {% endif %}
-        {{ _self.form_button(button) }}
-        {% set primary = 0 %}
-    {% endfor %}
-{% endmacro %}
-
-{% macro form_buttons_block(buttons, bundle) %}
-    <fieldset class="form-actions">
-        {{ _self.form_buttons(buttons, bundle) }}
-    </fieldset>
-{% endmacro %}
-
-{% macro form_block(form, attributes, buttons, title, bundle) %}
-    {% import 'knp_menu.html.twig' as macros %}
-    {%- set buttons = buttons is not empty ? buttons : {'save': {'label': 'Save', 'type': 'submit'}} %}
+    {% if attributes.action is not defined %}
+        {%- set attributes = attributes | merge({'action': action}) %}
+    {% endif %}
     {% if attributes.method is not defined %}
         {%- set attributes = attributes | merge({'method': 'POST'}) %}
     {% endif %}
-
-<form {{ form_enctype(form) }} {{ macros.attributes(attributes) }}>
+    {% if translation_params is empty %}
+        {%- set translation_params = {} %}
+    {% endif %}
+    <form {{ form_enctype(form) }} {{ macros.attributes(attributes) }}>
     {% if title is not empty %}
-    <legend>{{ title | trans({}, bundle) }}</legend>
+        <legend>{{ title | trans(translation_params, domain) }}</legend>
     {% endif %}
     {{ form_widget(form) }}
-    {{ _self.form_buttons_block(buttons, bundle) }}
-</form>
-{% endmacro %}
+{% endmacro begin %}
+
+{#
+    Form block end
+#}
+{% macro end() %}
+    </form>
+{% endmacro end %}
+
+{#
+    Form buttons block begin
+#}
+{% macro buttons_begin() %}
+    <fieldset class="form-actions">
+{% endmacro buttons_begin %}
+
+{#
+    Form buttons block end
+#}
+{% macro buttons_end() %}
+    </fieldset>
+{% endmacro buttons_end %}
+
+{#
+    Form button
+
+    @param string        label              button translation label key
+    @param string        domain             translation domain
+    @param array|empty   translation_params
+    @param string        type               button type: submit, reset
+    @param string|empty  url                if not empty - generate link instead button
+    @param boolean       primary            primary button
+    @param array|empty   attributes         array of button tag attributes
+#}
+{% macro button(label, domain, translation_params, type, url, primary, attributes) %}
+    {% import 'knp_menu.html.twig' as macros %}
+
+    {% if translation_params is empty %}
+        {%- set translation_params = {} %}
+    {% endif %}
+
+    {%-set domain = domain ? domain : 'MillwrightTwitterBootstrapdomain' %}
+
+    {%- set classes = attributes.class is defined ? [attributes.class, 'btn'] : ['btn'] %}
+    {%- if primary is not empty %}
+        {%- set classes = classes|merge(['btn-primary']) %}
+    {% endif  %}
+    {%- if attributes is empty %}
+        {%- set attributes = {} %}
+    {%- endif %}
+
+    {%- set id = attributes.id is defined ? attributes.id : label|replace({'.': '_'})|lower %}
+    {%- set attributes = attributes|merge({'class': classes|join(' '), 'id': id}) %}
+    {%- set label = label|trans(translation_params, domain) %}
+
+    {%- if url is empty %}
+        {%- set type = type ? type : 'submit' %}
+        {%- set attributes = attributes|merge({'type': type}) %}
+        <button{{ macros.attributes(attributes) }}>{{ label }}</button>
+    {%- else %}
+        {%- set attributes = attributes|merge({'href': url}) %}
+        <a{{ macros.attributes(attributes) }}>{{ label }}</a>
+    {%- endif %}
+{% endmacro button %}
+
+{#
+    Save submit button
+
+    @param boolean primary is button primary
+    @param array   attributes tag attributes
+#}
+{% macro button_save(primary, attributes) %}
+    {{ _self.button('Save', '', {}, 'submit', '', true, attributes) }}
+{% endmacro button_save %}
+
+{#
+    Cancel form link button
+
+    @param string url cancel button url
+    @param array  attributes tag attributes
+#}
+{% macro button_cancel(url, attributes) %}
+    {%- if url is empty %}
+        {%- set url = app.session.get('millwright.back_url') %}
+    {% endif %}
+
+    {{ _self.button('Cancel', '', {}, '', url, false, attributes) }}
+{% endmacro button_cancel %}
+
+{#
+    Confirm submit button
+
+    @param boolean primary is button primary
+    @param array   attributes tag attributes
+#}
+{% macro button_confirm(primary, attributes) %}
+    {{ _self.button('Confirm', '', {}, 'submit', '', true, attributes) }}
+{% endmacro button_confirm %}
+
+{#
+    Confirm submit search
+
+    @param boolean primary is button primary
+    @param array   attributes tag attributes
+#}
+{% macro button_search(primary, attributes) %}
+    {{ _self.button('Search', '', {}, 'submit', '', true, attributes) }}
+{% endmacro button_search %}
+
+{#
+    Confirm submit reset
+
+    @param boolean primary is button primary
+    @param array   attributes tag attributes
+#}
+{% macro button_reset(primary, attributes) %}
+    {{ _self.button('Reset', '', {}, 'reset', '', true, attributes) }}
+{% endmacro button_reset %}
+
+{#
+    Form save and cancel buttons
+
+    @param string backUrl cancel button url
+#}
+{% macro buttons_save_cancel(backUrl) %}
+    {{ _self.buttons_begin() }}
+        {{ _self.button_save() }}
+        {{ _self.button_cancel(backUrl)}}
+    {{ _self.buttons_end() }}
+{% endmacro buttons_save_cancel %}
+
+{#
+    Form search and reset buttons
+#}
+{% macro buttons_search_reset() %}
+    {{ _self.buttons_begin() }}
+        {{ _self.button_search() }}
+        {{ _self.button_reset()}}
+    {{ _self.buttons_end() }}
+{% endmacro buttons_search_reset %}
+
+
+{#
+    Form view with two buttons: Save and Cancel
+
+    @param Symfony\Component\Form\Form form
+    @param string                      action     form action url
+    @param string                      backUrl    cancel button url
+    @param array                       attributes form tag attributes
+#}
+{% macro form_save_cancel(form, action, backUrl, attributes) %}
+    {{ _self.begin(form, action, attributes) }}
+        {{ _self.buttons_save_cancel(backUrl) }}
+    {{ _self.end() }}
+{% endmacro form_save_cancel %}
+
+{#
+    Form view with two buttons: Search and reset
+
+    @param Symfony\Component\Form\Form form
+    @param string                      action     form action url
+    @param array                       attributes form tag attributes
+#}
+{% macro form_search_reset(form, action, attributes) %}
+    {{ _self.begin(form, action, attributes) }}
+        {{ _self.buttons_search_reset() }}
+    {{ _self.end() }}
+{% endmacro form_search_reset %}

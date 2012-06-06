@@ -7,8 +7,11 @@
     </dl>
 {% endmacro key_value %}
 
-{% macro link(route, routeParams, label, translationalDomain) %}
-<a href="{{ path(route, routeParams) }}" id="{{ route }}">
-    {{ label|trans([], translationalDomain) }}
-</a>
+{% macro link(route, routeParams, label, domain, translate_params) %}
+    {%- if translate_params is empty %}
+        {%- set translate_params = {} %}
+    {% endif %}
+    <a href="{{ path(route, routeParams) }}" id="{{ route }}">
+        {{ label|trans(translate_params, domain) }}
+    </a>
 {% endmacro link %}
