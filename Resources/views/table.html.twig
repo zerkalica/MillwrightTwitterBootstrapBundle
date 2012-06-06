@@ -4,7 +4,7 @@
         <tr>
             {% for col in columns %}
                 {% if col is iterable %}
-                    <th class="{{ col.label }}">
+                    <th class="{{ col.label|replace({'.': '_'})|lower }}">
                         {{ pagination.sortable(col.label, col.key, { 'translationDomain': translation_domain })|raw }}
                     </th>
                 {% else %}

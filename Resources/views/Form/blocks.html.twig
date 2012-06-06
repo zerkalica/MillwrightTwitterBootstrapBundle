@@ -11,6 +11,14 @@
 {% macro begin(form, action, attributes, title, domain, translation_params) %}
     {% import 'knp_menu.html.twig' as macros %}
 
+    {% if attributes is empty %}
+        {%- set attributes = {} %}
+    {% endif %}
+
+    {% if attributes.id is not defined %}
+        {%- set attributes = attributes | merge({'id': form.getName()}) %}
+    {% endif %}
+
     {% if attributes.action is not defined %}
         {%- set attributes = attributes | merge({'action': action}) %}
     {% endif %}
@@ -149,20 +157,20 @@
 
     @param string backUrl cancel button url
 #}
-{% macro buttons_save_cancel(backUrl) %}
+{% macro buttons_save_cancel(backUrl, label) %}
     {{ _self.buttons_begin() }}
-        {{ _self.button_save() }}
-        {{ _self.button_cancel(backUrl)}}
+        {{ _self.button_save(true, {'id': label ~ '__save'}) }}
+        {{ _self.button_cancel(backUrl, {'id': label ~ '__cancel'}) }}
     {{ _self.buttons_end() }}
 {% endmacro buttons_save_cancel %}
 
 {#
     Form search and reset buttons
 #}
-{% macro buttons_search_reset() %}
+{% macro buttons_search_reset(label) %}
     {{ _self.buttons_begin() }}
-        {{ _self.button_search() }}
-        {{ _self.button_reset()}}
+        {{ _self.button_search(true, {'id': label ~ '__search'}) }}
+        {{ _self.button_reset(false, {'id': label ~ '__reset'}) }}
     {{ _self.buttons_end() }}
 {% endmacro buttons_search_reset %}
 
@@ -177,7 +185,7 @@
 #}
 {% macro form_save_cancel(form, action, backUrl, attributes) %}
     {{ _self.begin(form, action, attributes) }}
-        {{ _self.buttons_save_cancel(backUrl) }}
+        {{ _self.buttons_save_cancel(backUrl, form.getName()) }}
     {{ _self.end() }}
 {% endmacro form_save_cancel %}
 
@@ -190,6 +198,6 @@
 #}
 {% macro form_search_reset(form, action, attributes) %}
     {{ _self.begin(form, action, attributes) }}
-        {{ _self.buttons_search_reset() }}
+        {{ _self.buttons_search_reset(form.getName()) }}
     {{ _self.end() }}
 {% endmacro form_search_reset %}
