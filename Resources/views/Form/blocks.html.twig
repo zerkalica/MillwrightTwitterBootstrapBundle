@@ -15,7 +15,11 @@
         {%- set attributes = {} %}
     {% endif %}
 
-    {% if attributes.id is not defined %}
+    {% if attributes.class is not defined %}
+        {%- set attributes = attributes | merge({'class': 'form-horizontal'}) %}
+    {% endif %}
+
+{% if attributes.id is not defined %}
         {%- set attributes = attributes | merge({'id': form.getName()}) %}
     {% endif %}
 
@@ -74,7 +78,7 @@
         {%- set translation_params = {} %}
     {% endif %}
 
-    {%-set domain = domain ? domain : 'MillwrightTwitterBootstrapdomain' %}
+    {%-set domain = domain ? domain : 'MillwrightTwitterBootstrapBundle' %}
 
     {%- set classes = attributes.class is defined ? [attributes.class, 'btn'] : ['btn'] %}
     {%- if primary is not empty %}

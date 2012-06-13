@@ -15,6 +15,7 @@ class HelpFormTypeExtension extends AbstractTypeExtension
             'help_inline' => $options['help_inline'],
             'help_block'  => $options['help_block'],
             'help_label'  => $options['help_label'],
+            'help_legend' => $options['help_legend'],
         ));
     }
 
@@ -24,6 +25,7 @@ class HelpFormTypeExtension extends AbstractTypeExtension
             'help_inline' => null,
             'help_block'  => null,
             'help_label'  => null,
+            'help_legend' => null,
         ));
     }
 
