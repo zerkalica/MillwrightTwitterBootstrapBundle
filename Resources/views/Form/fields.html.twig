@@ -28,13 +28,13 @@
 {% block form_widget_compound %}
 {% spaceless %}
     {% if not form.hasParent() %}
-        {% if render_fieldset %}<fieldset>{% endif %}
-        {% if show_legend %}{{ block('form_legend') }}{% endif %}
+        {% if render_fieldset %}<div class="form-body">{% endif %}
+        {% if show_legend %}{{ block('form_title') }}{% endif %}
     {% endif %}
     {{ block('form_rows_visible') }}
     {{ form_rest(form) }}
     {% if not form.hasParent() %}
-        {% if render_fieldset %}</fieldset>{% endif %}
+        {% if render_fieldset %}</div>{% endif %}
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_compound %}
@@ -140,6 +140,12 @@
     <legend>{{ label|trans({}, translation_domain) }}</legend>
 {% endspaceless %}
 {% endblock form_legend %}
+
+{% block form_title %}
+{% spaceless %}
+    <h3 class="form-title">{{ label|trans({}, translation_domain) }}</h3>
+{% endspaceless %}
+{% endblock form_title %}
 
 {% block form_label %}
 {% spaceless %}
@@ -328,10 +334,12 @@
     {% if errors|length > 0 %}
         {% set widget_control_group_attr = widget_control_group_attr|merge({'class': widget_control_group_attr.class|default('') ~ ' error'}) %}
     {% endif %}
-    <div {% for attrname,attrvalue in widget_control_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+
     {% if form.all|length > 0 and form.hasParent() and show_child_legend %}
+        <fieldset {% for attrname,attrvalue in widget_control_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
         {{ block('form_legend') }}
     {% else %}
+        <div {% for attrname,attrvalue in widget_control_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
         {{ form_label(form, label|default(null)) }}
     {% endif %}
     {% if widget_controls|default(false) or not form.hasParent() %}
@@ -348,7 +356,13 @@
     {% if widget_controls|default(false) or not form.hasParent() %}
         </div>
     {% endif %}
-    </div>
+
+    {% if form.all|length > 0 and form.hasParent() and show_child_legend %}
+        </fieldset>
+    {% else %}
+        </div>
+    {% endif %}
+
 {% endif %}
 {% endspaceless %}
 {% endblock widget_control_group_end %}
