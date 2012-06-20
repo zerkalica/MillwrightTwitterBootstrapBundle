@@ -19,7 +19,7 @@
         {%- set attributes = attributes | merge({'class': 'form-horizontal'}) %}
     {% endif %}
 
-{% if attributes.id is not defined %}
+    {% if attributes.id is not defined %}
         {%- set attributes = attributes | merge({'id': form.getName()}) %}
     {% endif %}
 
@@ -153,7 +153,7 @@
     @param array   attributes tag attributes
 #}
 {% macro button_reset(primary, attributes) %}
-    {{ _self.button('Reset', '', {}, 'reset', '', true, attributes) }}
+    {{ _self.button('Reset', '', {}, 'reset', '', false, attributes) }}
 {% endmacro button_reset %}
 
 {#

@@ -16,6 +16,12 @@
     </a>
 {% endmacro link %}
 
+{%- macro mail(email) -%}
+    <a href="mailto:{{ email }}">
+        {{ email }}
+    </a>
+{%- endmacro mail -%}
+
 {% macro attributes(attributes) %}
     {% for name, value in attributes %}
         {%- if value is not none and value is not sameas(false) -%}
@@ -23,3 +29,34 @@
         {%- endif -%}
     {%- endfor -%}
 {% endmacro attributes %}
+
+{# sidebar block begin #}
+{% macro begin() %}
+        <div>
+{% endmacro begin %}
+
+{# sidebar block end #}
+{% macro end() %}
+        </div>
+{% endmacro end %}
+
+{% macro date_time(date_string, format) %}
+    {%- if date_string is empty %}
+        -
+    {%- else -%}
+        {%- if format is empty %}
+            {% set format = 'd.m.Y H:i:s' %}
+        {%- endif -%}
+        {{ date_string|date(format) }}
+    {%- endif -%}
+{% endmacro date_time %}
+
+
+{% macro date_short(date_string) %}
+    {{ _self.date_time(date_string,'d.m.Y') }}
+{% endmacro date_short %}
+
+{% macro date_time_short(date_string) %}
+    {{ _self.date_time(date_string) }}
+{% endmacro date_time_short %}
+
