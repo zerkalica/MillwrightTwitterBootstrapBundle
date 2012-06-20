@@ -3,13 +3,18 @@
     <thead>
         <tr>
             {% for col in columns %}
-                {% if col is iterable %}
+
+                {% if col.label is not defined %}
+                    {% set col = {'label': col} %}
+                {% endif %}
+
+                {% if col.key is defined %}
                     <th class="{{ col.label|replace({'.': '_'})|lower }}">
                         {{ pagination.sortable(col.label, col.key, { 'translationDomain': translation_domain })|raw }}
                     </th>
                 {% else %}
-                    <th class="{{ col }}">
-                        {{ col | trans({}, translation_domain) }}
+                    <th class="{{ col.label }}">
+                        {{ col.label | trans({}, translation_domain) }}
                     </th>
                 {% endif %}
             {% endfor %}
