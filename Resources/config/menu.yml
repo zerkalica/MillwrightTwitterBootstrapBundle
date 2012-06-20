@@ -6,6 +6,16 @@ services:
         arguments:
             -
                 renderers:
+                    navigation: #menu type id
+                        renderer: null
+                    breadcrumbs:
+                        renderer: millwright_renderer
+                        rendererOptions: { block: 'breadcrumb'}
+                    link:
+                        renderer: millwright_renderer
+                        rendererOptions: { block: 'link'}
+                    actions:
+                        renderer: millwright_renderer
                     dropdown:
                         rendererOptions:
                             rootClass: 'dropdown-menu'
@@ -44,3 +54,18 @@ services:
                     navigation:
                         rendererOptions:
                             currentClass: 'active'
+
+                items:
+                    fos_user_registration_register:
+                        translateDomain: 'MillwrightMenuBundle'
+                        roles: ROLE_USER
+
+                    fos_user_profile_show:
+                        translateDomain: 'MillwrightMenuBundle'
+                        showNonAuthorized: true #show link in menu for non-authorized user
+                        roles: ROLE_USER
+
+                    fos_user_change_password:
+                        translateDomain: 'FOSUserBundle'
+                        roles: ROLE_USER
+                        label: 'change_password.submit'
