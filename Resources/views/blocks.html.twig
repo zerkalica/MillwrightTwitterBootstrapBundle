@@ -1,11 +1,27 @@
-{% macro key_value(translation_domain, list) %}
-    <dl>
-        {% for id, value in list %}
-        <dt>{{ id | trans({}, translation_domain)  }}</dt>
-        <dd>{{ value }}</dd>
-        {% endfor %}
-    </dl>
-{% endmacro key_value %}
+{% macro model_begin(translation_domain) %}
+    <div class="well">
+{% endmacro model_begin %}
+
+{% macro model_end() %}
+    </div>
+{% endmacro model_end %}
+
+{% macro model_row_begin(id, domain) %}
+<div class="row-fluid">
+    <strong class="span2 model-property">{{ id | trans({}, domain) }}: </strong>
+    <span class="span10 model-value">
+{% endmacro model_row_begin %}
+
+{% macro model_row_end(id) %}
+    </span>
+</div>
+{% endmacro model_row_end %}
+
+{% macro model_row(id, data, domain) %}
+    {{ _self.model_row_begin(id, domain) }}
+        {{ data|raw }}
+    {{ _self.model_row_end() }}
+{% endmacro model_row %}
 
 {% macro link(route, routeParams, label, domain, translate_params) %}
     {%- if translate_params is empty %}
@@ -16,11 +32,11 @@
     </a>
 {% endmacro link %}
 
-{%- macro mail(email) -%}
+{% block email %}
     <a href="mailto:{{ email }}">
         {{ email }}
     </a>
-{%- endmacro mail -%}
+{% endblock email %}
 
 {% macro attributes(attributes) %}
     {% for name, value in attributes %}
