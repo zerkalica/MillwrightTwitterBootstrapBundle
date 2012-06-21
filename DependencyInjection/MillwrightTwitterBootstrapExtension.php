@@ -1,5 +1,4 @@
 <?php
-
 namespace Millwright\TwitterBootstrapBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,7 +22,8 @@ class MillwrightTwitterBootstrapExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         $yamlloader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $yamlloader->load('form_extensions.yml');
+        $yamlloader->load('form/extensions.yml');
+        $yamlloader->load('twig.yml');
         $yamlloader->load('menu.yml');
 
         if (isset($config['form'])) {

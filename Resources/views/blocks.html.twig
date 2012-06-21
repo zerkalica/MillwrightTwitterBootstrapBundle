@@ -32,12 +32,6 @@
     </a>
 {% endmacro link %}
 
-{% block email %}
-    <a href="mailto:{{ email }}">
-        {{ email }}
-    </a>
-{% endblock email %}
-
 {% macro attributes(attributes) %}
     {% for name, value in attributes %}
         {%- if value is not none and value is not sameas(false) -%}
@@ -66,7 +60,6 @@
         {{ date_string|date(format) }}
     {%- endif -%}
 {% endmacro date_time %}
-
 
 {% macro date_short(date_string) %}
     {{ _self.date_time(date_string,'d.m.Y') }}

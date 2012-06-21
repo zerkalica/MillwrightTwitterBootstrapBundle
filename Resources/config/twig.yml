@@ -1,0 +1,13 @@
+parameters:
+    millwright_bootstrap.renderer.twig.template: MillwrightTwitterBootstrapBundle::helpers.html.twig
+    millwright_bootstrap.renderer.twig.class: Millwright\TwitterBootstrapBundle\Twig\BootstrapExtension
+
+services:
+    millwright_bootstrap.twig.bootstrap_extension:
+            class: %millwright_bootstrap.renderer.twig.class%
+            arguments:
+                - @twig
+                - %millwright_bootstrap.renderer.twig.template%
+            tags:
+                - { name: twig.extension }
+            public: false
