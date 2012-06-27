@@ -8,6 +8,7 @@ services:
             arguments:
                 - @twig
                 - %millwright_bootstrap.renderer.twig.template%
+                - @translator
             tags:
                 - { name: twig.extension }
             public: false

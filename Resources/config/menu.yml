@@ -6,16 +6,15 @@ services:
         arguments:
             -
                 renderers:
-                    navigation: #menu type id
-                        renderer: null
                     breadcrumbs:
-                        renderer: millwright_renderer
-                        rendererOptions: { block: 'breadcrumb'}
+                        renderer: millwright_breadcrumb_renderer
                     link:
-                        renderer: millwright_renderer
                         rendererOptions: { block: 'link'}
                     actions:
-                        renderer: millwright_renderer
+                        rendererOptions:
+                            rootClass: 'nav-tabs'
+                            currentClass: 'active'
+
                     dropdown:
                         rendererOptions:
                             rootClass: 'dropdown-menu'

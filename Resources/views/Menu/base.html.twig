@@ -6,11 +6,12 @@
 {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
 
     {% if item.getLevel == 0 %}
+        {# set root class only for root item #}
         {%- set classes = listAttributes is not empty and listAttributes.class is not empty
             ? [listAttributes.class] : [] %}
         {%- set classes = classes|merge(['nav']) %}
         {% if options.rootClass is defined %}
-        {%- set classes = classes|merge([options.rootClass]) %}
+            {%- set classes = classes|merge([options.rootClass]) %}
         {% endif %}
         {%- set listAttributes = listAttributes|merge({'class': classes | join(' ')}) %}
     {% endif %}

@@ -2,3 +2,8 @@ Save: 'Сохранить'
 Cancel: 'Отмена'
 Reset: 'Сбросить'
 Search: 'Поиск'
+
+yes: 'да'
+no: 'нет'
+enabled: 'включено'
+disabled: 'выключено'
