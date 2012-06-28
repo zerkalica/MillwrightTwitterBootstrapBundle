@@ -54,6 +54,11 @@ services:
                         rendererOptions:
                             currentClass: 'active'
 
+                    tree:
+                        rendererOptions:
+                            rootClass: 'tree'
+                            isDropdown: false
+
                 items:
                     fos_user_registration_register:
                         translateDomain: 'MillwrightMenuBundle'
