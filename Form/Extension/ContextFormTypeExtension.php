@@ -12,7 +12,7 @@ class ContextFormTypeExtension extends AbstractTypeExtension
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'context' => null,
+            'context' => array(),
         ));
     }
 
