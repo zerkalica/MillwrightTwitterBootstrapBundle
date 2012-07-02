@@ -50,13 +50,7 @@
     {%- endif %}
 {# displaying the item #}
     <li{{ macros.attributes(attributes) }}>
-        {%- if item.hasChildren %}
-        {{ block('dropdownElement') }}
-        {%- elseif item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
-        {{ block('linkElement') }}
-        {%- else %}
-        {{ block('spanElement') }}
-        {%- endif %}
+    {{ block('element') }}
 {# render the list of children#}
         {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
         {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level, options.isDropdown is not empty ? 'dropdown-menu' : '']) %}
@@ -66,16 +60,23 @@
 {% endif %}
 {% endblock item %}
 
-{% block dropdownElement %}
-{% import 'knp_menu.html.twig' as macros %}
-{%- set labelAttributes = item.labelAttributes %}
-{%- set classes = labelAttributes is not empty and labelAttributes.class is not empty ? [labelAttributes.class] : [] %}
-{%- if  options.isDropdown is not empty %}}
-    {%- set classes = classes|merge(['dropdown-toggle']) %}
-    {%- set labelAttributes = labelAttributes|merge({'class': classes | join(' ')}) %}
-    <a{{ macros.attributes(labelAttributes) }} href="#" data-toggle="dropdown">{{ block('label') }}<span class="caret"></span></a>
-{% else %}
-    {{ block('linkElement') }}
-{% endif %}
+{% block element %}
+    {% import 'knp_menu.html.twig' as macros %}
+    {%- if item.hasChildren and options.isDropdown is not empty %}
+        {%- set labelAttributes = item.labelAttributes %}
+        {%- set classes = labelAttributes is not empty and labelAttributes.class is not empty ? [labelAttributes.class] : [] %}
+        {%- set classes = classes|merge(['dropdown-toggle']) %}
+        {%- set labelAttributes = labelAttributes|merge({'class': classes | join(' ')}) %}
+        <a{{ macros.attributes(labelAttributes) }} href="#" data-toggle="dropdown">{{ block('label') }}<span class="caret"></span></a>
+    {% else %}
+        {{ block('linkSpanElement') }}
+    {% endif %}
+{% endblock element %}
 
-{% endblock %}
+{% block linkSpanElement %}
+    {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+        {{ block('linkElement') }}
+    {%- else %}
+        {{ block('spanElement') }}
+    {%- endif %}
+{% endblock linkSpanElement %}
