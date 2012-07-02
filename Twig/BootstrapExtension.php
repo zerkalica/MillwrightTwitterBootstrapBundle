@@ -25,6 +25,7 @@ class BootstrapExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
+            'phone' => new \Twig_Filter_Method($this, 'phone', array('is_safe' => array('html'))),
             'email_link' => new \Twig_Filter_Method($this, 'emailLink', array('is_safe' => array('html'))),
             'boolean'    => new \Twig_Filter_Method($this, 'boolean', array('is_safe' => array('html'))),
         );
@@ -57,4 +58,8 @@ class BootstrapExtension extends \Twig_Extension
         return $this->translator->trans($variable ? 'yes' : 'no', array(), 'MillwrightTwitterBootstrapBundle');
     }
 
+    public function phone($phone)
+    {
+        return $phone;
+    }
 }
