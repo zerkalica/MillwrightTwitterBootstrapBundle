@@ -9,6 +9,11 @@ services:
            tags:
                 - { name: form.type_extension, alias: form }
 
+    millwright_bootstrap.form.transform_class_extension:
+               class: Millwright\TwitterBootstrapBundle\Form\Extension\TransformClassFormTypeExtension
+               tags:
+                    - { name: form.type_extension, alias: form }
+
     millwright_bootstrap.form.legend_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\LegendFormTypeExtension
            arguments:
