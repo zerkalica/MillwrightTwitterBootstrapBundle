@@ -12,6 +12,11 @@ class BootstrapExtension extends \Twig_Extension
     protected $template;
     protected $translator;
 
+    /**
+     * @param \Twig_Environment    $environment
+     * @param                     $template
+     * @param TranslatorInterface $translator
+     */
     public function __construct(\Twig_Environment $environment, $template, TranslatorInterface $translator)
     {
         $this->enviroment = $environment;
@@ -25,7 +30,7 @@ class BootstrapExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'phone' => new \Twig_Filter_Method($this, 'phone', array('is_safe' => array('html'))),
+            'phone'      => new \Twig_Filter_Method($this, 'phone', array('is_safe' => array('html'))),
             'email_link' => new \Twig_Filter_Method($this, 'emailLink', array('is_safe' => array('html'))),
             'boolean'    => new \Twig_Filter_Method($this, 'boolean', array('is_safe' => array('html'))),
         );
