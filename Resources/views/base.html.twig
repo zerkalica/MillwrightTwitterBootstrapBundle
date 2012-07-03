@@ -93,3 +93,7 @@
     </section> <!-- /page-content -->
     {{ block('footer_markup') }}
 {% endblock page_header_footer_sidebar_right %}
+
+{% block sidebar_primary %}
+    {{ block('search') }}
+{% endblock sidebar_primary %}
