@@ -1,4 +1,8 @@
 {#
+    Form macro
+#}
+
+{#
     Form block begin
 
     @param Symfony\Component\Form\Form form       form object
@@ -8,7 +12,7 @@
     @param string                      domain     title translate domain
     @param string                      translation_params title translation params
 #}
-{% macro begin(form, action, attributes, title, domain, translation_params) %}
+{% macro form_begin(form, action, attributes, title, domain, translation_params) %}
     {% import 'knp_menu.html.twig' as macros %}
 
     {% if attributes is empty %}
@@ -37,14 +41,14 @@
         <legend>{{ title | trans(translation_params, domain) }}</legend>
     {% endif %}
     {{ form_widget(form) }}
-{% endmacro begin %}
+{% endmacro form_begin %}
 
 {#
     Form block end
 #}
-{% macro end() %}
+{% macro form_end() %}
     </form>
-{% endmacro end %}
+{% endmacro form_end %}
 
 {#
     Form buttons block begin
@@ -188,9 +192,9 @@
     @param array                       attributes form tag attributes
 #}
 {% macro form_save_cancel(form, action, backUrl, attributes) %}
-    {{ _self.begin(form, action, attributes) }}
+    {{ _self.form_begin(form, action, attributes) }}
         {{ _self.buttons_save_cancel(backUrl, form.getName()) }}
-    {{ _self.end() }}
+    {{ _self.form_end() }}
 {% endmacro form_save_cancel %}
 
 {#
@@ -201,7 +205,8 @@
     @param array                       attributes form tag attributes
 #}
 {% macro form_search_reset(form, action, attributes) %}
-    {{ _self.begin(form, action, attributes) }}
+    {{ _self.form_begin(form, action, attributes) }}
         {{ _self.buttons_search_reset(form.getName()) }}
-    {{ _self.end() }}
+    {{ _self.form_end() }}
 {% endmacro form_search_reset %}
+
