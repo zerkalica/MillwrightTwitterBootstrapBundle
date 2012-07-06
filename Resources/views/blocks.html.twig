@@ -59,7 +59,7 @@
 #}
 {% macro no_data() %}
     {{ _self.block_begin() }}
-        Нет данных
+        {{ no_data|trans({}, 'MillwrightTwitterBootstrapBundle') }}
     {{ _self.block_end() }}
 {% endmacro no_data %}
 
@@ -272,8 +272,6 @@
     @param string                      translation_params title translation params
 #}
 {% macro form_begin(form, action, attributes, title, domain, translation_params) %}
-    {% import 'knp_menu.html.twig' as macros %}
-
     {% if attributes is empty %}
         {%- set attributes = {} %}
     {% endif %}
@@ -295,7 +293,7 @@
     {% if translation_params is empty %}
         {%- set translation_params = {} %}
     {% endif %}
-    <form {{ form_enctype(form) }} {{ macros.attributes(attributes) }}>
+    <form {{ form_enctype(form) }} {{ _self.attributes(attributes) }}>
     {% if title is not empty %}
         <legend>{{ title | trans(translation_params, domain) }}</legend>
     {% endif %}
