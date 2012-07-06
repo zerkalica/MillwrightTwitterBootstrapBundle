@@ -24,6 +24,15 @@
 {% endmacro attributes %}
 
 {#
+    Clean up class attribute
+
+    @param string attr
+#}
+{% macro attr_clean(attr) %}
+    {{- attr|replace({'.': '_'})|lower -}}
+{% endmacro attr_clean %}
+
+{#
     Icon block
 
     @param string name icon name
@@ -170,7 +179,7 @@
 
 {#
     Date time string
-    
+
     @param DateTime date
     @param string format
     @example
@@ -347,7 +356,7 @@
         {%- set attributes = {} %}
     {%- endif %}
 
-    {%- set id = attributes.id is defined ? attributes.id : label|replace({'.': '_'})|lower %}
+    {%- set id = _self.attr_clean(attributes.id is defined ? attributes.id : label) %}
     {%- set attributes = attributes|merge({'class': classes|join(' '), 'id': id}) %}
     {%- set label = label|trans(translation_params, domain) %}
 
@@ -490,11 +499,11 @@
                 {% endif %}
 
                 {% if col.key is defined %}
-                    <th class="{{ col.label|replace({'.': '_'})|lower }}">
+                    <th class="{{ _self.attr_clean(col.label) }}">
                         {{ pagination.sortable(col.label, col.key, { 'translationDomain': translation_domain })|raw }}
                     </th>
                 {% else %}
-                    <th class="{{ col.label }}">
+                    <th class="{{ _self.attr_clean(col.label) }}">
                         {{ col.label | trans({}, translation_domain) }}
                     </th>
                 {% endif %}
