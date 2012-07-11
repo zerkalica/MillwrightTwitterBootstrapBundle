@@ -45,11 +45,11 @@
 {#
     Abstract block begin
 
-    @param string translation_domain translation domain
     @param string title              block title
+    @param string translation_domain translation domain
     @param {}     attributes         block attributes: class, id, etc
 #}
-{% macro block_begin(translation_domain, title, attributes) %}
+{% macro block_begin(title, translation_domain, attributes) %}
     {% if title is not empty %}
         <h3>{{ title|trans({}, translation_domain) }}</h3>
     {% endif %}
@@ -79,11 +79,11 @@
 {#
     Begin model block
 
-    @param string translation_domain translation domain
     @param string title              block title
+    @param string translation_domain translation domain
 #}
-{% macro model_begin(translation_domain, title) %}
-    {{ _self.block_begin(translation_domain, title, {'class': 'well'}) }}
+{% macro model_begin(title, translation_domain) %}
+    {{ _self.block_begin(title, translation_domain, {'class': 'well'}) }}
 {% endmacro model_begin %}
 
 {#
@@ -140,8 +140,8 @@
         ['contract.field.maxCouponsPerUser', contract.maxCouponsPerUser],
     ], translation_domain) }}
 #}
-{% macro model(rows, translation_domain) %}
-    {{ _self.model_begin(translation_domain) }}
+{% macro model(rows, title, translation_domain) %}
+    {{ _self.model_begin(title, translation_domain) }}
     {% for item in rows %}
         {{ _self.model_row(item[0], item[1], translation_domain) }}
     {% endfor %}
