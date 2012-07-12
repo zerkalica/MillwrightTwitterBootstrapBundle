@@ -119,10 +119,15 @@
     @param string id     translation key
     @param string data   data to view
     @param string domain translation domain
+    @param boolean raw
 #}
-{% macro model_row(id, data, domain) %}
+{% macro model_row(id, data, domain, raw) %}
     {{ _self.model_row_begin(id, domain) }}
-        {{ data|raw }}
+        {% if raw %}
+            {{ data|raw }}
+        {% else %}
+            {{ data }}
+        {% endif %}
     {{ _self.model_row_end() }}
 {% endmacro model_row %}
 
@@ -143,7 +148,7 @@
 {% macro model(rows, title, translation_domain) %}
     {{ _self.model_begin(title, translation_domain) }}
     {% for item in rows %}
-        {{ _self.model_row(item[0], item[1], translation_domain) }}
+        {{ _self.model_row(item[0], item[1], translation_domain, item[2] is defined ? 1 : 0) }}
     {% endfor %}
     {{ _self.model_end() }}
 {% endmacro model %}
