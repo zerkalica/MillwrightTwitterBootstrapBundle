@@ -51,10 +51,28 @@
 #}
 {% macro block_begin(title, translation_domain, attributes) %}
     {% if title is not empty %}
-        <h3>{{ title|trans({}, translation_domain) }}</h3>
+        {{ _self.block_title(title, translation_domain) }}
     {% endif %}
     <div{{ _self.attributes(attributes|default({})) }}>
 {% endmacro block_begin %}
+
+{#
+    Abstract block title
+#}
+{% macro block_title(title, translation_domain, menu_container, route_params, translation_params) %}
+    {% if menu_container is not empty %}
+        <div class="row-fluid">
+            <div class="span3">
+                <h2>{{ title|trans({}, translation_domain) }}</h2>
+            </div>
+            <div class="span9">
+                {{ millwright_menu_render(menu_container,route_params|default({}), translation_params|default({})) }}
+            </div>
+        </div>
+    {% else %}
+    <h2>{{ title|trans({}, translation_domain) }}</h2>
+    {% endif %}
+{% endmacro block_title %}
 
 {#
     Abstract block end
@@ -119,11 +137,11 @@
     @param string id     translation key
     @param string data   data to view
     @param string domain translation domain
-    @param boolean raw
+    @param boolean escape
 #}
-{% macro model_row(id, data, domain, raw) %}
+{% macro model_row(id, data, domain, escape) %}
     {{ _self.model_row_begin(id, domain) }}
-        {% if raw %}
+        {% if escape %}
             {{ data|raw }}
         {% else %}
             {{ data }}
@@ -148,7 +166,7 @@
 {% macro model(rows, title, translation_domain) %}
     {{ _self.model_begin(title, translation_domain) }}
     {% for item in rows %}
-        {{ _self.model_row(item[0], item[1], translation_domain, item[2] is defined ? 1 : 0) }}
+        {{ _self.model_row(item[0], item[1], translation_domain, item[2] is defined ? 0 : 1) }}
     {% endfor %}
     {{ _self.model_end() }}
 {% endmacro model %}
