@@ -29,7 +29,7 @@ class LegendFormTypeExtension extends AbstractTypeExtension
             'label_render'      => $options['label_render'],
         );
 
-        array_replace($view->vars, $vars);
+        $view->vars = array_replace($view->vars, $vars);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

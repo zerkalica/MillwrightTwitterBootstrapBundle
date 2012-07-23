@@ -23,7 +23,7 @@ class ErrorTypeFormTypeExtension extends AbstractTypeExtension
             'error_delay' => $options['error_delay'],
         );
 
-        array_replace($view->vars, $vars);
+        $view->vars = array_replace($view->vars, $vars);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
