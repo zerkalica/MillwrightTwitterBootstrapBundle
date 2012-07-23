@@ -51,10 +51,13 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
                 $options['widget_remove_btn']['icon'] = $this->options['widget_remove_btn']['icon'];
             }
         }
-        $view->addVars(array(
+
+        $vars = array(
             'widget_add_btn'    => $options['widget_add_btn'],
             'widget_remove_btn' => $options['widget_remove_btn'],
-        ));
+        );
+
+        array_replace($view->vars, $vars);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

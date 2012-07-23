@@ -22,12 +22,14 @@ class LegendFormTypeExtension extends AbstractTypeExtension
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->addVars(array(
+        $vars = array(
             'render_fieldset'   => $options['render_fieldset'],
             'show_legend'       => $options['show_legend'],
             'show_child_legend' => $options['show_child_legend'],
             'label_render'      => $options['label_render'],
-        ));
+        );
+
+        array_replace($view->vars, $vars);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

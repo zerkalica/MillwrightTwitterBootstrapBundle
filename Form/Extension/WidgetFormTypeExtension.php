@@ -33,24 +33,30 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
             $defaults = $this->defaultOptions;
             $options['widget_addon'] = array_merge( $defaults['widget_addon'], $options['widget_addon']);
         }
-        if (in_array('percent', $view->getVar('types'))) {
-            if ($options['widget_addon']['text'] === null && $options['widget_addon']['icon'] === null) {
-                $options['widget_addon']['text'] = '%';
+
+        if (array_key_exists('types', $view->vars)) {
+            $types = $view->vars['types'];
+
+            if (in_array('percent', $types)) {
+                if ($options['widget_addon']['text'] === null && $options['widget_addon']['icon'] === null) {
+                    $options['widget_addon']['text'] = '%';
+                }
+                if ($options['widget_addon']['type'] === null) {
+                    $options['widget_addon']['type'] = 'append';
+                }
             }
-            if ($options['widget_addon']['type'] === null) {
-                $options['widget_addon']['type'] = 'append';
+            if (in_array('money', $types)) {
+                if ($options['widget_addon']['type'] === null) {
+                    $options['widget_addon']['type'] = 'prepend';
+                }
             }
         }
-        if (in_array('money', $view->getVar('types'))) {
-            if ($options['widget_addon']['type'] === null) {
-                $options['widget_addon']['type'] = 'prepend';
-            }
-        }
+
         if (($options['widget_addon']['text'] !== null || $options['widget_addon']['icon'] !== null) && $options['widget_addon']['type'] === null) {
             throw new \Exception('You must provide a "type" for widget_addon');
         }
 
-        $view->addVars(array(
+        $vars = array(
             'widget_control_group'      => $options['widget_control_group'],
             'widget_controls'           => $options['widget_controls'],
             'widget_addon'              => $options['widget_addon'],
@@ -59,7 +65,9 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
             'widget_type'               => $options['widget_type'],
             'widget_control_group_attr' => $options['widget_control_group_attr'],
             'widget_controls_attr'      => $options['widget_controls_attr'],
-        ));
+        );
+
+        array_replace($view->vars, $vars);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
