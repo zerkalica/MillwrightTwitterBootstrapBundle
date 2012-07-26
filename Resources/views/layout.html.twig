@@ -8,7 +8,9 @@
     'bundles/millwrighttwitterbootstrap/bootstrap/less/responsive.less'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
+
 {% endstylesheets %}
+{{ parent() }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
@@ -29,7 +31,9 @@
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-typeahead.js'
 -%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
+
 {% endjavascripts %}
+{{ parent() }}
 {% endblock javascripts %}
 
 {% block header_markup %}

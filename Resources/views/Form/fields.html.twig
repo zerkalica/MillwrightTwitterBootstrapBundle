@@ -137,8 +137,10 @@
 
 {% block form_legend %}
 {% spaceless %}
+    {% if label is not empty %}
     <legend>{{ label|trans({}, translation_domain) }}</legend>
     {{ block('form_help') }}
+    {% endif %}
 {% endspaceless %}
 {% endblock form_legend %}
 

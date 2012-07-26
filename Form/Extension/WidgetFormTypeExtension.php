@@ -67,6 +67,7 @@ class WidgetFormTypeExtension extends AbstractTypeExtension
             'widget_controls_attr'      => $options['widget_controls_attr'],
         );
 
+
         $view->vars = array_replace($view->vars, $vars);
     }
 
