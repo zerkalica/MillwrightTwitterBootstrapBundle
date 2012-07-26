@@ -459,6 +459,18 @@
     {{ _self.buttons_end() }}
 {% endmacro buttons_save_cancel %}
 
+
+{#
+    Form save button
+
+    @param string backUrl cancel button url
+#}
+{% macro buttons_save(label) %}
+    {{ _self.buttons_begin() }}
+    {{ _self.button_save(true, {'id': label ~ '__save'}) }}
+    {{ _self.buttons_end() }}
+{% endmacro buttons_save %}
+
 {#
     Form search and reset buttons
 #}
@@ -483,6 +495,19 @@
         {{ _self.buttons_save_cancel(backUrl, form.getName()) }}
     {{ _self.form_end() }}
 {% endmacro form_save_cancel %}
+
+{#
+    Form view with one button: Save
+
+    @param Symfony\Component\Form\Form form
+    @param string                      action     form action url
+    @param array                       attributes form tag attributes
+#}
+{% macro form_save(form, action, attributes) %}
+    {{ _self.form_begin(form, action, attributes) }}
+        {{ _self.buttons_save(form.getName()) }}
+    {{ _self.form_end() }}
+{% endmacro form_save %}
 
 {#
     Form view with two buttons: Search and reset
