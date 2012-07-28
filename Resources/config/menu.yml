@@ -1,6 +1,6 @@
 services:
     millwright_bootstrap.menu_options:
-        class: "%millwright_menu.options.class%"
+        class: "%millwright_configuration.options.class%"
         tags:
             - {name: millwright_menu.menu_options}
         arguments:
