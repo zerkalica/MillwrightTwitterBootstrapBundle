@@ -33,6 +33,7 @@ class BootstrapExtension extends \Twig_Extension
             'phone'      => new \Twig_Filter_Method($this, 'phone', array('is_safe' => array('html'))),
             'email_link' => new \Twig_Filter_Method($this, 'emailLink', array('is_safe' => array('html'))),
             'boolean'    => new \Twig_Filter_Method($this, 'boolean', array('is_safe' => array('html'))),
+            'get_class'  => new \Twig_Filter_Method($this, 'getClass', array('is_safe' => array('html'))),
         );
     }
 
@@ -66,5 +67,10 @@ class BootstrapExtension extends \Twig_Extension
     public function phone($phone)
     {
         return $phone;
+    }
+
+    public function getClass($object)
+    {
+        return is_object($object) ? get_class($object) : gettype($object);
     }
 }
