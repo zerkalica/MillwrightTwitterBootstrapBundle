@@ -214,10 +214,11 @@
 
 {% block form_message %}
 {% spaceless %}
-    <div class="help-inline">
-        {{ form_errors(form) }}
-    </div>
-    {{ block('form_help') }}
+    {% if form_errors(form) %}
+        <div class="help-inline">
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
 {% endspaceless %}
 {% endblock form_message %}
 
