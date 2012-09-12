@@ -49,9 +49,11 @@
 </footer>
 {% endblock footer_markup %}
 
+{% block title %}{{ block('content_title') }}{% endblock title %}
+
 {% block content_header %}
 <header id="content-header">
-    <h1 id="content-title">{{ block('content_title') }}</h1>
+    <!-- <h1 id="content-title">{{ block('content_title') }}</h1> -->
     <p id="content-description">
         {{ block('content_description') }}
     </p> <!-- /content-desdcription -->
