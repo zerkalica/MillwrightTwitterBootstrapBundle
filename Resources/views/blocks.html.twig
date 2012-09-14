@@ -325,7 +325,7 @@
     {% if translation_params is empty %}
         {%- set translation_params = {} %}
     {% endif %}
-    <form {{ form_enctype(form) }} {{ _self.attributes(attributes) }}>
+    <form {{ form_enctype(form) }} {{ _self.attributes(attributes) }} novalidate>
     {% if title is not empty %}
         <legend>{{ title | trans(translation_params, domain) }}</legend>
     {% endif %}
