@@ -138,15 +138,17 @@
 {% block form_legend %}
 {% spaceless %}
     {% if label is not empty %}
-    <legend>{{ label|trans({}, translation_domain) }}</legend>
-    {{ block('form_help') }}
+        <legend>{{ label|trans({}, translation_domain) }}</legend>
+        {{ block('form_help') }}
     {% endif %}
 {% endspaceless %}
 {% endblock form_legend %}
 
 {% block form_title %}
 {% spaceless %}
-    <h3 class="form-title">{{ label|trans({}, translation_domain) }}</h3>
+    {% if label is not empty %}
+        <h3 class="form-title">{{ label|trans({}, translation_domain) }}</h3>
+    {% endif %}
 {% endspaceless %}
 {% endblock form_title %}
 

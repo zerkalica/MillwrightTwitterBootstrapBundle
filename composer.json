@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.0,<2.2-dev",
+        "symfony/framework-bundle": ">=2.0,<2.4-dev",
         "zerkalica/millwright-configuration-bundle": "dev-master"
     },
     "autoload": {

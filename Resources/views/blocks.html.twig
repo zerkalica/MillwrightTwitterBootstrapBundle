@@ -330,6 +330,9 @@
         <legend>{{ title | trans(translation_params, domain) }}</legend>
     {% endif %}
     {{ form_widget(form) }}
+    {% for key, value in options_registry() %}
+        <input name="{{ key }}" value="{{ value }}" type="hidden" />
+    {% endfor %}
 {% endmacro form_begin %}
 
 {#
