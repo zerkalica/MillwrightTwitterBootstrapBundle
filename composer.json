@@ -8,8 +8,9 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.0,<2.4-dev",
-        "zerkalica/millwright-configuration-bundle": "dev-master"
+        "symfony/framework-bundle": ">=2.0",
+        "zerkalica/millwright-configuration-bundle": "dev-master",
+        "zerkalica/millwright-filter": "dev-master"
     },
     "autoload": {
         "psr-0": {
