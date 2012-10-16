@@ -1,4 +1,8 @@
 {% extends 'MillwrightBoilerplateBundle::layout.html.twig' %}
+
+{#
+    Render css
+#}
 {% block stylesheets %}
 {% stylesheets
     filter='lessphp,cssembed,?yui_css'
@@ -13,6 +17,9 @@
 {{ parent() }}
 {% endblock stylesheets %}
 
+{#
+    render js
+#}
 {% block javascripts %}
 {%- javascripts
     filter='?yui_js'
@@ -36,10 +43,49 @@
 {{ parent() }}
 {% endblock javascripts %}
 
+{% block navbar_wrapper %}
+    <nav id="page-navbar" role="navigation" class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div>{{ block('navbar_top') }}</div>
+                <div>
+                {{ block('navbar_markup') }}
+                </div>
+            </div> <!-- /container -->
+        </div> <!-- /navbar-inner -->
+    </nav> <!-- /page-navbar -->
+{% endblock navbar_wrapper %}
+
+{% block navbar_markup %}
+    {{ block('navbar_buttons') }}
+    <a class="brand" href="{{ path('homepage') }}">{{ block('project_name') }}</a>
+    <div class="nav-collapse collapse">
+        {% set navbar_text = block('navbar_text') %}
+        {% if navbar_text is not empty %}
+            <p class="navbar-text pull-right">{{ navbar_text|raw }}</p>
+        {% endif %}
+        {{ block('navbar_menu') }}
+    </div>
+{% endblock navbar_markup %}
+
+{#
+    .btn-navbar is used as the toggle for collapsed navbar content
+#}
+{% block navbar_buttons %}
+
+    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+{% endblock navbar_buttons %}
+
 {% block header_markup %}
 <header id="page-header">
+    {{ block('header_top') }}
     {{ block('navbar_wrapper') }}
     {{ block('header') }}
+    {{ block('header_bottom') }}
 </header> <!-- /page-header -->
 {% endblock header_markup %}
 
@@ -74,34 +120,32 @@
     {{ block('content') }}
 {% endblock content_markup %}
 
-{% block layout_two_column %}
-<div class="row-fluid">
-    <aside id="sidebar-primary" role="complementary" class="span3 sidebar">
-        {{ block('sidebar_primary') }}
-    </aside> <!-- /sidebar-primary -->
-
-    <section id="content" role="main" class="span9 content">
-        {{ block('content_markup') }}
-    </section> <!-- /content -->
-</div>
-{% endblock layout_two_column %}
-
-{% block page_header_footer_sidebar_left %}
-    {{ block('header_markup') }}
-    <section id="page-content" class="container-fluid sidebar-left">
-        {{ block('layout_two_column') }}
-    </section> <!-- /page-content -->
-    {{ block('footer_markup') }}
-{% endblock page_header_footer_sidebar_left %}
-
-{% block page_header_footer_sidebar_right %}
-    {{ block('header_markup') }}
-    <section id="page-content" class="container-fluid sidebar-right">
-        {{ block('layout_two_column') }}
-    </section> <!-- /page-content -->
-    {{ block('footer_markup') }}
-{% endblock page_header_footer_sidebar_right %}
-
 {% block sidebar_primary %}
-    {{ block('search') }}
+    {{- block('search') -}}
 {% endblock sidebar_primary %}
+
+{% block layout_two_column_sidebar_left %}
+    <section id="page-content" class="container-fluid sidebar-left">
+        <div class="row-fluid">
+            {% set sidebar_primary =  block('sidebar_primary') %}
+            {% set content_class = "" %}
+
+            {% if sidebar_primary is not empty %}
+                {% set content_class = "span9 " %}
+                <aside id="sidebar-primary" role="complementary" class="span3 sidebar">
+                    {{ sidebar_primary|raw }}
+                </aside> <!-- /sidebar-primary -->
+            {% endif %}
+
+            <section id="content" role="main" class="{{ content_class }}content">
+                {{ block('content_markup') }}
+            </section> <!-- /content -->
+        </div>
+    </section> <!-- /page-content -->
+{% endblock layout_two_column_sidebar_left %}
+
+{% block body %}
+    {{ block('header_markup') }}
+    {{ block('layout_two_column_sidebar_left') }}
+    {{ block('footer_markup') }}
+{% endblock body %}

@@ -1,18 +1,9 @@
-{% block body %}
-    <div class="content-wrapper-17">
-        {{ block('page_header_footer_sidebar_left') }}
-    </div>
-{% endblock body %}
-
 {% block navbar_menu %}
     {{ millwright_menu_render('main') }}
 {% endblock navbar_menu %}
 
-{% block navbar_text %}
-    {{ block('fos_login_block') }}
-{% endblock navbar_text %}
+{% block navbar_top %}<div></div><div class="pull-right">{{- block('fos_login_block') -}}</div></div>{% endblock navbar_top %}
 
-{% block header %}header{% endblock header %}
 {% block footer %}footer{% endblock footer %}
 
 {% block content_breadcrumbs %}content_breadcrumbs{% endblock content_breadcrumbs %}
