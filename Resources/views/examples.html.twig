@@ -2,7 +2,7 @@
     {{ millwright_menu_render('main') }}
 {% endblock navbar_menu %}
 
-{% block navbar_top %}<div></div><div class="pull-right">{{- block('fos_login_block') -}}</div></div>{% endblock navbar_top %}
+{% block navbar_text %}{{- block('fos_login_block') -}}{% endblock navbar_text %}
 
 {% block footer %}footer{% endblock footer %}
 
