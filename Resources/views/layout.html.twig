@@ -13,7 +13,6 @@
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 {% endstylesheets %}
-{% endblock stylesheets %}
 
 {% stylesheets
     filter='lessphp,cssembed,?yui_css'
@@ -23,17 +22,17 @@
     'bundles/millwrighttwitterbootstrap/bootstrap/less/responsive.less'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
+
 {% endstylesheets %}
+{% endblock stylesheets %}
 
 {#
     render js
 #}
 {% block javascripts %}
-{{ parent() }}
 {%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
-    'bundles/millwrighttwitterbootstrap/bootstrap/jquery.ui/js/bootstrap-alert.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
@@ -50,6 +49,7 @@
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 
 {% endjavascripts %}
+{{ parent() }}
 {% endblock javascripts %}
 
 {% block navbar_wrapper %}
@@ -130,7 +130,6 @@
 {% endblock content_markup %}
 
 {% block sidebar_primary %}
-    {{- block('secondary_links') -}}
     {{- block('search') -}}
 {% endblock sidebar_primary %}
 
