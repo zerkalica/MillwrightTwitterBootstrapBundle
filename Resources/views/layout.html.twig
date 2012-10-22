@@ -121,6 +121,7 @@
 {% endblock content_markup %}
 
 {% block sidebar_primary %}
+    {{- block('secondary_links') -}}
     {{- block('search') -}}
 {% endblock sidebar_primary %}
 
