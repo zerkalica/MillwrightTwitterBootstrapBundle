@@ -26,6 +26,11 @@
 {% endstylesheets %}
 {% endblock stylesheets %}
 
+{% block javascripts_pre %}
+    {{ parent() }}
+    {% include 'MillwrightBoilerplateBundle::google_js.html.twig' with {'url': 'jqueryui/1.9.0/jquery-ui.min.js', path: 'bundles/millwrighttwitterbootstrap/jquery.ui/js/jquery-ui-1.9.0.custom.min.js'} %}
+{% endblock javascripts_pre %}
+
 {#
     render js
 #}
@@ -35,7 +40,7 @@
 {%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
-    'bundles/millwrightboilerplate/js/jquery.ui.datepicker-ru.js'
+    'bundles/millwrighttwitterbootstrap/jquery.ui/js/jquery.ui.datepicker-ru.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
@@ -53,6 +58,7 @@
 
 {% endjavascripts %}
 {% endblock javascripts %}
+
 
 {% block navbar_wrapper %}
     <nav id="page-navbar" role="navigation" class="navbar navbar-inverse">
