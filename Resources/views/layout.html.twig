@@ -30,9 +30,12 @@
     render js
 #}
 {% block javascripts %}
+{{ parent() }}
+
 {%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
+    'bundles/millwrightboilerplate/js/jquery.ui.datepicker-ru.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
@@ -49,7 +52,6 @@
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 
 {% endjavascripts %}
-{{ parent() }}
 {% endblock javascripts %}
 
 {% block navbar_wrapper %}
