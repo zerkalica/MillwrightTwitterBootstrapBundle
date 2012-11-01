@@ -35,23 +35,28 @@
     Collection.prototype = {
         constructor: Collection,
         add: function () {
-            var index, row;
             this.options.index = this.options.index + 1;
-            index = this.options.index;
+            var index = this.options.index;
             if ($.isFunction(this.options.addcheckfunc) && !this.options.addcheckfunc()) {
                 if ($.isFunction(this.options.addfailedfunc)) {
                     this.options.addfailedfunc();
                 }
                 return;
             }
-            row = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);
-            $('div' + this.options.collection_id + ' .controls').append($('<div />').html(row).text());
+            this.addPrototype(index);
+        },
+        addPrototype: function(index) {
+            var rowContent = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);
+            var row = $("<div />");
+            row.html(rowContent);
+            $('div' + this.options.collection_id + '> .controls').append(row);
+            $(this.options.collection_id).trigger('add.mopa-collection-item', [row]);
         },
         remove: function () {
                 if (this.$element.parents('.collection-item').length !== 0){
-                    this.$element.parents('.collection-item').remove();
+                    this.$element.closest('.collection-item').remove();
                 }
-          }
+        }
 
     };
 
@@ -62,16 +67,18 @@
   $.fn.collection = function ( option ) {
       return this.each(function () {
           var $this = $(this),
-            collection_id = '#'+$this.data('collection-add-btn'),
+            collection_id = $this.data('collection-add-btn'),
             data = $this.data('collection'),
             options = typeof option == 'object' ? option : {};
-
-          options.collection_id = collection_id;
-
+          if(collection_id){
+              options.collection_id = collection_id;
+          }
+          else{
+        	  options.collection_id = this.id.length === 0 ? '' : '#' + this.id;
+          }
           if (!data){
               $this.data('collection', (data = new Collection(this, options)));
           }
-          data.options.collection_id = collection_id;
           if (option == 'add') {
               data.add();
           }
@@ -100,6 +107,7 @@
             $btn = $btn.closest('.btn');
         }
         $btn.collection('add');
+        e.preventDefault();
       });
       $('body').on('click.collection.data-api', '[data-collection-remove-btn]', function ( e ) {
         var $btn = $(e.target);
@@ -107,6 +115,7 @@
             $btn = $btn.closest('.btn');
         }
         $btn.collection('remove');
+        e.preventDefault();
       });
   });
 

@@ -1,23 +1,18 @@
 services:
-    millwright_bootstrap.form.help_extension:
-           class: Millwright\TwitterBootstrapBundle\Form\Extension\HelpFormTypeExtension
-           tags:
-                - { name: form.type_extension, alias: form }
-
     millwright_bootstrap.form.context_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\ContextFormTypeExtension
            tags:
                 - { name: form.type_extension, alias: form }
 
-    millwright_bootstrap.form.transform_class_extension:
-               class: Millwright\TwitterBootstrapBundle\Form\Extension\TransformClassFormTypeExtension
-               tags:
-                    - { name: form.type_extension, alias: form }
+    millwright_bootstrap.form.help_extension:
+           class: Millwright\TwitterBootstrapBundle\Form\Extension\HelpFormTypeExtension
+           tags:
+                - { name: form.type_extension, alias: form }
 
     millwright_bootstrap.form.legend_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\LegendFormTypeExtension
            arguments:
-                - { render_fieldset: %millwright_bootstrap.form.render_fieldset%, show_legend: %millwright_bootstrap.form.show_legend%, show_child_legend: %millwright_bootstrap.form.show_child_legend% }
+                - { render_fieldset: %millwright_bootstrap.form.render_fieldset%, show_legend: %millwright_bootstrap.form.show_legend%, show_child_legend: %millwright_bootstrap.form.show_child_legend%, render_required_asterisk: %millwright_bootstrap.form.render_required_asterisk%, render_optional_text: %millwright_bootstrap.form.render_optional_text% }
            tags:
                 - { name: form.type_extension, alias: form }
 
@@ -33,7 +28,7 @@ services:
            tags:
                 - { name: form.type_extension, alias: form }
 
-    millwright_bootstrap.form.widget_collection_extension:
+    millwright.form.widget_collection_extension:
            class: Millwright\TwitterBootstrapBundle\Form\Extension\WidgetCollectionFormTypeExtension
            arguments:
                 - { widget_add_btn: %millwright_bootstrap.form.collection.widget_add_btn%, widget_remove_btn: %millwright_bootstrap.form.collection.widget_remove_btn% }

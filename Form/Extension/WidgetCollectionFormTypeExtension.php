@@ -1,12 +1,11 @@
 <?php
 namespace Millwright\TwitterBootstrapBundle\Form\Extension;
 
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Exception\FormException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
 {
@@ -45,29 +44,25 @@ class WidgetCollectionFormTypeExtension extends AbstractTypeExtension
                 $options['widget_remove_btn']['attr'] = $this->options['widget_remove_btn']['attr'];
             }
             if (!isset($options['widget_remove_btn']['label']) && !isset($options['widget_remove_btn']['icon'])) {
-                throw new FormException('Provide either "icon" or "label" to "widget_remove_btn"');
+                 throw new FormException('Provide either "icon" or "label" to "widget_remove_btn"');
             }
             if (!isset($options['widget_remove_btn']['icon']) && $this->options['widget_remove_btn']['icon'] != null) {
                 $options['widget_remove_btn']['icon'] = $this->options['widget_remove_btn']['icon'];
             }
         }
-
-        $vars = array(
-            'widget_add_btn'    => $options['widget_add_btn'],
-            'widget_remove_btn' => $options['widget_remove_btn'],
-        );
-
-        $view->vars = array_replace($view->vars, $vars);
+        $view->vars['omit_collection_item'] = $options['omit_collection_item'];
+        $view->vars['widget_add_btn'] = $options['widget_add_btn'];
+        $view->vars['widget_remove_btn'] = $options['widget_remove_btn'];
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'widget_add_btn'    => null,
+            'omit_collection_item' => false,
+            'widget_add_btn' => null,
             'widget_remove_btn' => null,
         ));
     }
-
     public function getExtendedType()
     {
         return 'form';
