@@ -49,8 +49,10 @@
             var rowContent = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);
             var row = $("<div />");
             row.html(rowContent);
+            $('select').chosen();
             $('div' + this.options.collection_id + '> .controls').append(row);
             $(this.options.collection_id).trigger('add.mopa-collection-item', [row]);
+            $(this.options.collection_id).attachPlugins();
         },
         remove: function () {
                 if (this.$element.parents('.collection-item').length !== 0){

@@ -1,35 +1,29 @@
-{% extends 'MillwrightBoilerplateBundle::layout.html.twig' %}
+{% extends 'MillwrightTwitterBootstrapBundle::base.html.twig' %}
 
 {#
     Render css
 #}
 {% block stylesheets %}
-{{ parent() }}
 
 {% stylesheets
-    filter='cssembed,?yui_css'
-    output="css/jquery.ui.min.css"
-    'bundles/millwrighttwitterbootstrap/jquery.ui/css/custom-theme/jquery-ui-1.9.0.custom.css'
+    filter='cssrewrite,?yui_css'
+    output="css/plugins.css"
+    'bundles/millwrighttwitterbootstrap/select2/select2.css'
+    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/daterangepicker.css'
+    'bundles/millwrighttwitterbootstrap/custom/css/custom.css'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 {% endstylesheets %}
 
 {% stylesheets
-    filter='lessphp,cssembed,?yui_css'
-    output="css/bootstrap.min.css"
-    'bundles/millwrighttwitterbootstrap/bootstrap/less/bootstrap.less'
-    'bundles/millwrighttwitterbootstrap/custom/less/custom.less'
-    'bundles/millwrighttwitterbootstrap/bootstrap/less/responsive.less'
+    filter='lessphp,cssrewrite,?yui_css'
+    output="css/style.css"
+    'bundles/millwrighttwitterbootstrap/custom/less/mopabootstrapbundle.less'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 
 {% endstylesheets %}
 {% endblock stylesheets %}
-
-{% block javascripts_pre %}
-    {{ parent() }}
-    {% include 'MillwrightBoilerplateBundle::google_js.html.twig' with {'url': 'jqueryui/1.9.0/jquery-ui.min.js', path: 'bundles/millwrighttwitterbootstrap/jquery.ui/js/jquery-ui-1.9.0.custom.min.js'} %}
-{% endblock javascripts_pre %}
 
 {#
     render js
@@ -40,7 +34,6 @@
 {%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
-    'bundles/millwrighttwitterbootstrap/jquery.ui/js/jquery.ui.datepicker-ru.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
@@ -53,118 +46,36 @@
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-popover.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-transition.js'
     'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-typeahead.js'
-    'bundles/millwrighttwitterbootstrap/js/mopabootstrap-collection.js'
+
+    'bundles/millwrighttwitterbootstrap/bootstrap-timepicker/js/bootstrap-timepicker.js'
+
+    'bundles/millwrighttwitterbootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js'
+
+    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/date.js'
+    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/daterangepicker.js'
+
+    'bundles/millwrighttwitterbootstrap/custom/js/bootstrap-typeahead.ajax.js'
+    'bundles/millwrighttwitterbootstrap/custom/js/jquery.confirmAction.js'
+    'bundles/millwrighttwitterbootstrap/custom/js/mopabootstrap-collection.js'
+
+    'bundles/millwrighttwitterbootstrap/select2/select2.js'
 -%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 
 {% endjavascripts %}
 {% endblock javascripts %}
 
+{% block document_ready %}
+    {{ parent() }}
 
-{% block navbar_wrapper %}
-    <nav id="page-navbar" role="navigation" class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <div class="container">
-                <div>{{ block('navbar_top') }}</div>
-                <div>
-                {{ block('navbar_markup') }}
-                </div>
-            </div> <!-- /container -->
-        </div> <!-- /navbar-inner -->
-    </nav> <!-- /page-navbar -->
-{% endblock navbar_wrapper %}
+    $('.datepicker', $this).datepicker({
+        format: '{{ date_format() }}',
+        autoclose: true,
+        todayHighlight: true,
+        language: 'ru',
+        weekStart: 1
+    });
 
-{% block navbar_markup %}
-    {{ block('navbar_buttons') }}
-    <a class="brand" href="{{ path('homepage') }}">{{ block('project_name') }}</a>
-    <div class="nav-collapse collapse">
-        {% set navbar_text = block('navbar_text') %}
-        {% if navbar_text is not empty %}
-            <p class="navbar-text pull-right">{{ navbar_text|raw }}</p>
-        {% endif %}
-        {{ block('navbar_menu') }}
-    </div>
-{% endblock navbar_markup %}
-
-{#
-    .btn-navbar is used as the toggle for collapsed navbar content
-#}
-{% block navbar_buttons %}
-
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </a>
-{% endblock navbar_buttons %}
-
-{% block header_markup %}
-<header id="page-header">
-    {{ block('header_top') }}
-    {{ block('navbar_wrapper') }}
-    {{ block('header') }}
-    {{ block('header_bottom') }}
-</header> <!-- /page-header -->
-{% endblock header_markup %}
-
-{% block footer_markup %}
-<footer id="page-footer">
-    {{ block('footer') }}
-</footer>
-{% endblock footer_markup %}
-
-{% block title %}{{ block('content_title') }}{% endblock title %}
-
-{% block content_header %}
-<header id="content-header">
-    <!-- <h1 id="content-title">{{ block('content_title') }}</h1> -->
-    <p id="content-description">
-        {{ block('content_description') }}
-    </p> <!-- /content-desdcription -->
-</header> <!-- /content-header -->
-{% endblock content_header %}
-
-{% block messages %}
-    {% from 'MillwrightTwitterBootstrapBundle::flash.html.twig' import session_flash %}
-    {{ session_flash() }}
-{% endblock messages %}
-
-{% block content_markup %}
-    {{ block('content_header') }}
-    {{ block('content_breadcrumbs') }}
-    {{ block('messages') }}
-    {{ block('content_actions') }}
-    {{ block('content_secondary_actions') }}
-    {{ block('content') }}
-{% endblock content_markup %}
-
-{% block sidebar_primary %}
-    {{- block('search') -}}
-    {{- block('secondary_links') -}}
-{% endblock sidebar_primary %}
-
-{% block layout_two_column_sidebar_left %}
-    <section id="page-content" class="container-fluid sidebar-left">
-        <div class="row-fluid">
-            {% set sidebar_primary =  block('sidebar_primary') %}
-            {% set content_class = "" %}
-
-            {% if sidebar_primary is not empty %}
-                {% set content_class = "span9 " %}
-                <aside id="sidebar-primary" role="complementary" class="span3 sidebar">
-                    {{ sidebar_primary|raw }}
-                </aside> <!-- /sidebar-primary -->
-            {% endif %}
-
-            <section id="content" role="main" class="{{ content_class }}content">
-                {{ block('content_markup') }}
-            </section> <!-- /content -->
-        </div>
-    </section> <!-- /page-content -->
-{% endblock layout_two_column_sidebar_left %}
-
-{% block body %}
-    {{ block('header_markup') }}
-    {{ block('layout_two_column_sidebar_left') }}
-    {{ block('footer_markup') }}
-{% endblock body %}
+    $('.chosen', $this).select2({});
+{% endblock %}
