@@ -6,5 +6,4 @@
 .settings
 coverage
 phpunit.xml
-vendor
 composer.lock

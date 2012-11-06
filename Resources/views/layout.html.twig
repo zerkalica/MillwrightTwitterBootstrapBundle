@@ -8,8 +8,8 @@
 {% stylesheets
     filter='cssrewrite,?yui_css'
     output="css/plugins.css"
-    'bundles/millwrighttwitterbootstrap/select2/select2.css'
-    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/daterangepicker.css'
+    'bundles/millwrighttwitterbootstrap/vendor/select2/select2.css'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.css'
     'bundles/millwrighttwitterbootstrap/custom/css/custom.css'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
@@ -34,32 +34,32 @@
 {%- javascripts
     filter='?yui_js'
     output="js/core.min.js"
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-alert.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-button.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-carousel.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-collapse.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-dropdown.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-modal.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-scrollspy.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-tab.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-tooltip.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-popover.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-transition.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap/js/bootstrap-typeahead.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-alert.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-button.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-carousel.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-collapse.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-dropdown.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-modal.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-scrollspy.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-tab.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-tooltip.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-popover.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-transition.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap/js/bootstrap-typeahead.js'
 
-    'bundles/millwrighttwitterbootstrap/bootstrap-timepicker/js/bootstrap-timepicker.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js'
 
-    'bundles/millwrighttwitterbootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js'
 
-    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/date.js'
-    'bundles/millwrighttwitterbootstrap/bootstrap-daterangepicker/daterangepicker.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/date.js'
+    'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
 
     'bundles/millwrighttwitterbootstrap/custom/js/bootstrap-typeahead.ajax.js'
     'bundles/millwrighttwitterbootstrap/custom/js/jquery.confirmAction.js'
     'bundles/millwrighttwitterbootstrap/custom/js/mopabootstrap-collection.js'
 
-    'bundles/millwrighttwitterbootstrap/select2/select2.js'
+    'bundles/millwrighttwitterbootstrap/vendor/select2/select2.js'
 -%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 
