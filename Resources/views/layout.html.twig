@@ -15,6 +15,7 @@
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 {% endstylesheets %}
 
+{% block stylesheets_less %}
 {% stylesheets
     filter='lessphp,cssrewrite,?yui_css'
     output="css/style.css"
@@ -23,6 +24,8 @@
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 
 {% endstylesheets %}
+{% endblock stylesheets_less %}
+
 {% endblock stylesheets %}
 
 {#
