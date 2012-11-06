@@ -31,7 +31,7 @@ cleanup() {
 
     cd $vendor/bootstrap-datepicker && \
     rm * .* 2>/dev/null  && \
-    rm -rf build tests
+    rm -rf build tests css
 
     cd $vendor/bootstrap-timepicker && \
     rm * .* 2>/dev/null  && \
@@ -58,7 +58,7 @@ fix_img() {
     cp -R $vendor/bootstrap/img $vendor/../custom/img
 }
 
-#recreate
-#download
+recreate
+download
 cleanup
 fix_img
