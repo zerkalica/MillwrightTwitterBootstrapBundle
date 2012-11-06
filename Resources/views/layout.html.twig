@@ -8,7 +8,8 @@
 {% stylesheets
     filter='cssrewrite,?yui_css'
     output="css/plugins.css"
-    'bundles/millwrighttwitterbootstrap/vendor/select2/select2.css'
+    'bundles/millwrighttwitterbootstrap/vendor/chosen/chosen/chosen.css'
+    'bundles/millwrighttwitterbootstrap/vendor/multi-select/css/multi-select.css'
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.css'
     'bundles/millwrighttwitterbootstrap/custom/css/custom.css'
 %}
@@ -58,11 +59,13 @@
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/date.js'
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
 
+    'bundles/millwrighttwitterbootstrap/vendor/chosen/chosen/chosen.jquery.js'
+
+    'bundles/millwrighttwitterbootstrap/vendor/multi-select/js/jquery.multi-select.js'
+
     'bundles/millwrighttwitterbootstrap/custom/js/bootstrap-typeahead.ajax.js'
     'bundles/millwrighttwitterbootstrap/custom/js/jquery.confirmAction.js'
     'bundles/millwrighttwitterbootstrap/custom/js/mopabootstrap-collection.js'
-
-    'bundles/millwrighttwitterbootstrap/vendor/select2/select2.js'
 -%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
 
@@ -80,5 +83,6 @@
         weekStart: 1
     });
 
-    $('.chosen', $this).select2({});
+    $('.chosen', $this).chosen();
+    //$('.chosen', $this).multiSelect();
 {% endblock %}
