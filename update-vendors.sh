@@ -19,6 +19,8 @@ download() {
     git clone git://github.com/dangrossman/bootstrap-daterangepicker.git
     git clone git://github.com/eternicode/bootstrap-datepicker.git
     git clone git://github.com/twitter/bootstrap.git
+    cd $vendor/bootstrap && \
+        git fetch && git checkout 2.1.2-wip
 }
 
 cleanup() {
