@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-typeahead.js v2.2.1
+ * bootstrap-typeahead.js v2.1.2
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -230,9 +230,6 @@
       switch(e.keyCode) {
         case 40: // down arrow
         case 38: // up arrow
-        case 16: // shift
-        case 17: // ctrl
-        case 18: // alt
           break
 
         case 9: // tab
@@ -300,11 +297,13 @@
  /*   TYPEAHEAD DATA-API
   * ================== */
 
-  $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
-    var $this = $(this)
-    if ($this.data('typeahead')) return
-    e.preventDefault()
-    $this.typeahead($this.data())
+  $(function () {
+    $('body').on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
+      var $this = $(this)
+      if ($this.data('typeahead')) return
+      e.preventDefault()
+      $this.typeahead($this.data())
+    })
   })
 
 }(window.jQuery);
