@@ -13,5 +13,11 @@
 {% block javascripts %}
 {{ parent() }}
     {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': 'bundles/millwrighttwitterbootstrap/vendor/less.js/dist/less-1.3.1.js' } %}
-    {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': 'bundles/millwrighttwitterbootstrap/vendor/coffee.js/js/coffee-script.js' } %}
 {% endblock javascripts %}
+
+
+
+{% block javascripts_post %}
+    {{ parent() }}
+    {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': 'bundles/millwrighttwitterbootstrap/vendor/coffee.js/js/coffee-script.js' } %}
+{% endblock javascripts_post %}
