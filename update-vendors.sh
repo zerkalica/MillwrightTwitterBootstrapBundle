@@ -11,10 +11,10 @@ recreate() {
 download() {
     cd $vendor
     git clone git://github.com/malsup/form.git
-    git clone git://github.com/cloudhead/less.js.git
-    git clone git://github.com/riklomas/quicksearch.git
-    git clone git://github.com/lou/multi-select.git
     git clone git://github.com/harvesthq/chosen.git
+    git clone git://github.com/lou/multi-select.git
+
+    git clone git://github.com/cloudhead/less.js.git
     git clone git://github.com/jdewit/bootstrap-timepicker.git
     git clone git://github.com/dangrossman/bootstrap-daterangepicker.git
     git clone git://github.com/eternicode/bootstrap-datepicker.git
@@ -50,9 +50,6 @@ cleanup() {
 
     cd $vendor/multi-select && \
     rm -rf test
-
-    cd $vendor/quicksearch && \
-    rm -rf examples
 }
 
 fix_img() {

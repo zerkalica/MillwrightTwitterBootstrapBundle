@@ -8,13 +8,7 @@
 {% stylesheets
     filter='cssrewrite,?yui_css'
     output="css/plugins.css"
-    'bundles/millwrighttwitterbootstrap/vendor/chosen/chosen/chosen.css'
-    'bundles/millwrighttwitterbootstrap/vendor/multi-select/css/multi-select.css'
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.css'
-
-    '@XiAjaxBundle/Resources/assets/css/errorizers.css'
-
-    'bundles/millwrighttwitterbootstrap/custom/css/custom.css'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 {% endstylesheets %}
@@ -23,7 +17,7 @@
 {% stylesheets
     filter='lessphp,cssrewrite,?yui_css'
     output="css/style.css"
-    'bundles/millwrighttwitterbootstrap/custom/less/mopabootstrapbundle.less'
+    'bundles/millwrighttwitterbootstrap/custom/less/main.less'
 %}
 {% include 'MillwrightBoilerplateBundle::css.html.twig' with {'css': asset_url } %}
 
@@ -62,16 +56,7 @@
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/date.js'
     'bundles/millwrighttwitterbootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
 
-    'bundles/millwrighttwitterbootstrap/vendor/chosen/chosen/chosen.jquery.js'
-
-    'bundles/millwrighttwitterbootstrap/vendor/multi-select/js/jquery.multi-select.js'
-
-    'bundles/millwrighttwitterbootstrap/vendor/form/jquery.form.js'
-
-    'bundles/millwrighttwitterbootstrap/vendor/jquery.Storage/jquery.Storage.js'
-
     'bundles/millwrighttwitterbootstrap/custom/js/bootstrap-typeahead.ajax.js'
-    'bundles/millwrighttwitterbootstrap/custom/js/jquery.confirmAction.js'
     'bundles/millwrighttwitterbootstrap/custom/js/mopabootstrap-collection.js'
 -%}
 {% include 'MillwrightBoilerplateBundle::js.html.twig' with {'js': asset_url } %}
@@ -89,7 +74,4 @@
         language: 'ru',
         weekStart: 1
     });
-
-    $('.chosen', $this).chosen();
-    //$('.chosen', $this).multiSelect();
 {% endblock %}
