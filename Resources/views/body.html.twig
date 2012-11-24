@@ -1,5 +1,3 @@
-{% extends 'MillwrightBoilerplateBundle::layout.html.twig' %}
-
 {% block navbar_wrapper %}
     <nav id="page-navbar" role="navigation" class="navbar navbar-inverse">
         <div class="navbar-inner">
@@ -102,8 +100,8 @@
     </section> <!-- /page-content -->
 {% endblock layout_two_column_sidebar_left %}
 
-{% block body %}
+{% block body_content %}
     {{ block('header_markup') }}
     {{ block('layout_two_column_sidebar_left') }}
     {{ block('footer_markup') }}
-{% endblock body %}
+{% endblock body_content %}
