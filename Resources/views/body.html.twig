@@ -105,3 +105,10 @@
     {{ block('layout_two_column_sidebar_left') }}
     {{ block('footer_markup') }}
 {% endblock body_content %}
+
+
+{% block navbar_menu %}
+    {{ millwright_menu_render('main') }}
+{% endblock navbar_menu %}
+
+{% block navbar_text %}{{- block('fos_login_block') -}}{% endblock navbar_text %}
